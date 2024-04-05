@@ -49,7 +49,7 @@ export default function Register() {
   }, [router, mainButton, backButton, initData, dispatch, username]);
   
   // Validation function
-  const validateAndCheckUser = async (username: string) => {
+  const validateUsername = async (username: string) => {
     const isValid = usernameValidation(username);
     
     setFormState({
@@ -65,6 +65,7 @@ export default function Register() {
 
   const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: ActionTypes.CHANGE_USERNAME, payload: e.target.value });
+    validateUsername(e.target.value);
   };
 
   return (
