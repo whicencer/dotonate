@@ -4,7 +4,9 @@ import { validate, parse } from "@tma.js/init-data-node";
 
 export async function GET(req: Request) {
   const [authType, authData = ""] = (req.headers.get("authorization") || "").split(" ");
-  const token = process.env.BOT_TOKEN || "";
+  const token = process.env.MODE === "development"
+    ? process.env.DEV_BOT_TOKEN || ""
+    : process.env.BOT_TOKEN || "";
 
   switch (authType) {
     case "tma":
