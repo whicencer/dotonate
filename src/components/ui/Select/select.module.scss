@@ -1,0 +1,22 @@
+.customSelect {
+	margin-top: 10px;
+	select {
+		outline: none;
+		appearance: none;
+		/* safari */
+		-webkit-appearance: none;
+		/* other styles for aesthetics */
+		width: 100%;
+		font-size: 16px;
+		padding: 12px;
+		background-color: var(--tg-theme-secondary-background-color);
+		border: 1px solid var(--tg-theme-hint-color);
+		border-radius: 18px;
+		color: var(--tg-theme-text-color, #E6E6E6);
+		cursor: pointer;
+
+		&:focus {
+			border-color: var(--tg-theme-accent-text-color);
+		}
+	}
+}

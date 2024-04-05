@@ -1,0 +1,29 @@
+.header {
+	text-align: center;
+	
+	.headerCreditCard {
+		display: inline-block;
+		font-size: 140px;
+		transform: rotate(13deg);
+	}
+}
+
+.input {
+	display: flex;
+	flex-direction: column;
+	margin-top: 14px;
+
+	input {
+		margin-top: 5px;
+	}
+
+	span {
+    margin-top: 12px;
+		font-size: 12px;
+	}
+}
+
+.termsOfUse {
+	margin-top: 10px;
+	display: flex;
+}

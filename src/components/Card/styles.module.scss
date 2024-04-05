@@ -1,0 +1,73 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: linear-gradient(30deg,
+      var(--tg-theme-link-color) 6%,
+      var(--tg-theme-button-color) 97%);
+  border-radius: 21px;
+  color: #fff;
+  width: 100%;
+  min-height: 180px;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+
+    span {
+      font-size: 20px;
+      color: #fff;
+      font-weight: 700;
+    }
+  }
+}
+
+.cardContent {
+  span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+  }
+}
+
+.badges {
+  display: flex;
+  /* or 'grid' depending on your layout */
+  overflow-x: auto;
+  /* this will add a horizontal scrollbar if the content overflows */
+  min-width: 0;
+  /* prevents flex items from shrinking past content size */
+  scrollbar-width: none;
+}
+
+.badges::-webkit-scrollbar {
+  display: none;
+  /* This will hide the scrollbar in Webkit browsers */
+}
+
+.badge {
+  flex: 0 0 auto;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--tg-theme-link-color);
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+
+  margin-left: 8px;
+
+  &:first-child {
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: var(--tg-theme-secondary-background-color);
+    color: var(--tg-theme-text-color);
+  }
+}
+
+.badgeActive {
+  background-color: var(--tg-theme-secondary-background-color);
+  color: var(--tg-theme-text-color);
+}

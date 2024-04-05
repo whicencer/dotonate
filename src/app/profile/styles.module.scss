@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    color: var(--tg-theme-text-color);
+  }
+  svg {
+    cursor: pointer;
+  }
+}
+
+.greeting {
+  padding-bottom: 15px;
+}
+
+.donations {
+  margin-top: 26px;
+
+  h2 {
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 14px;
+      font-weight: 400;
+      margin-left: 8px;
+
+      a {
+        color: var(--tg-theme-text-color);
+        &:hover {
+          color: var(--tg-theme-link-color);
+        }
+      }
+    }
+  }
+}

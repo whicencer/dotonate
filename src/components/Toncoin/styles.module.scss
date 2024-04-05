@@ -1,0 +1,18 @@
+.toncoin {
+  width: 180px;
+  height: 180px;
+  margin: 40px 0;
+  filter: drop-shadow( 0 0 20px var(--tg-theme-button-color));
+  transition: .2s;
+  animation: bubble 1.2s infinite alternate;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

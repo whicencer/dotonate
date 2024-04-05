@@ -1,0 +1,57 @@
+.Transaction {
+  background-color: var(--tg-theme-secondary-background-color, var(--tg-theme-secondary-bg-color));
+  padding: 18px;
+  border-radius: 15px;
+  width: 100%;
+  margin-top: 11px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.transactionSum {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.donator {
+  width: 100%;
+  max-width: 85%;
+  font-size: 20px;
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
+.donationMsg {
+  font-size: 14px;
+  margin-top: 10px;
+  width: 100%;
+  word-wrap: break-word;
+  color: var(--tg-theme-hint-color);
+}
+
+.menuBtn {
+  color: var(--tg-theme-text-color);
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 12px;
+  font-size: 16px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:hover {
+    color: var(--tg-theme-accent-text-color);
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,36 @@
+.donationLink {
+  display: flex;
+  align-items: center;
+  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-secondary-background-color, --tg-theme-secondary-bg-color);
+  padding: 13px;
+  margin-top: 8px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+
+  span {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.copied {
+  color: var(--tg-theme-accent-text-color);
+  animation: textSlide 0.5s alternate;
+}
+
+@keyframes textSlide {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
