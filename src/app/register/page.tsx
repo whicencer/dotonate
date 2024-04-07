@@ -29,7 +29,7 @@ export default function Register() {
     dispatch({ type: ActionTypes.CHANGE_TELEGRAM_ID, payload: initData?.user?.id });
 
     backButton.show();
-    backButton.on('click', () => router.push('/welcome'));
+    backButton.on('click', () => router.back());
 
     mainButton.setText("Next step");
 
@@ -49,7 +49,7 @@ export default function Register() {
   }, [router, mainButton, backButton, initData, dispatch, username]);
   
   // Validation function
-  const validateUsername = async (username: string) => {
+  const validateUsername = (username: string) => {
     const isValid = usernameValidation(username);
     
     setFormState({
