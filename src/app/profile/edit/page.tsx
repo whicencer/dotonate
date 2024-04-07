@@ -1,12 +1,75 @@
 "use client";
 
 import { Input } from "@/components/ui/Input/Input";
+import { Loader } from "@/components/ui/Loader/Loader";
 import { Textarea } from "@/components/ui/Textarea/Textarea";
-import { useState } from "react";
+import { useUserProfileData } from "@/hooks/useUserData";
+import { useBackButton, useInitDataRaw, useMainButton } from "@tma.js/sdk-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { editUser } from "./services/editUser";
 
 export default function EditProfile() {
-  const [pageText, setPageText] = useState("");
+  const initDataRaw = useInitDataRaw();
+  const { user, isLoading } = useUserProfileData(initDataRaw);
 
+  const [minValue, setMinValue] = useState(1);
+  const [pageText, setPageText] = useState("");
+  
+  const router = useRouter();
+  const backButton = useBackButton();
+  const mainButton = useMainButton();
+
+  useEffect(() => {
+    if (user) {
+      setMinValue(user.minDonate || 1);
+      setPageText(user.description || "");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      mainButton.show();
+      mainButton.setText("Save");
+      mainButton.enable();
+    }
+
+    const handlerClick = async () => {
+      mainButton.hide();
+      try {
+        const response = await editUser(minValue, pageText, initDataRaw);
+        
+        if (response.ok) {
+          alert("Profile has been successfully updated!");
+          router.push('/profile');
+          backButton.hide();
+        } else {
+          alert("Failed to update profile :(");
+          console.error("Failed to update profile");
+          mainButton.show();
+        }
+      } catch (error) {
+        console.log("Error while updating profile: ", error);
+      }
+    };
+
+    mainButton.on('click', handlerClick);
+
+    return () => mainButton.off('click', handlerClick);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minValue, pageText, initDataRaw, isLoading, router]);
+
+  useEffect(() => {
+    backButton.show();
+    backButton.on('click', () => {
+      router.back();
+      backButton.hide();
+      mainButton.hide();
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, mainButton]);
+
+  if (isLoading) return <Loader />;
   return (
     <div>
       <h2>Edit profile</h2>
@@ -14,7 +77,11 @@ export default function EditProfile() {
 
       <div style={{ marginTop: 20 }}>
         <Input
-          type="text"
+          min={1}
+          value={minValue.toString()}
+          onChange={(e) => setMinValue(Number(e.target.value))}
+          type="number"
+          inputMode="numeric"
           placeholder="Min amount"
           label="Minimum donate amount"
         />
