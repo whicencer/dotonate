@@ -6,15 +6,10 @@
 
 html, body {
 	margin: 12px;
-	background-color: var(--tg-theme-background-color);
+	background-color: var(--tg-theme-secondary-background-color);
 	color: var(--tg-theme-text-color);
 }
 
-label {
-	font-weight: 500;
-	color: var(--tg-theme-accent-text-color);
-}
-
-p, span {
+p, span, label {
 	color: var(--tg-theme-hint-color);
 } 
