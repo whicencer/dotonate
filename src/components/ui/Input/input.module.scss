@@ -4,12 +4,12 @@
 }
 
 .input {
-	margin-top: 10px;
-	border: 2px solid var(--tg-theme-hint-color);
+	margin-top: 7px;
+	border: 2px solid transparent;
 	border-radius: 18px;
 	padding: 12px;
 	outline: none;
-	background-color: var(--tg-theme-secondary-background-color);
+	background-color: var(--tg-theme-background-color);
 	color: var(--tg-theme-text-color);
 
 	font-weight: 500;
@@ -21,10 +21,10 @@
 	}
 
 	&:focus {
-		border-color: var(--tg-theme-accent-text-color);
+		border-color: var(--tg-theme-link-color);
 	}
 }
 
 .invalid {
-	border: 1px solid red !important;
+	border: 2px solid red !important;
 }
