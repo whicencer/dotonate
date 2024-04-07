@@ -11,32 +11,11 @@ import { DonationLink } from "@/components/DonationLink/DonationLink";
 import Link from "next/link";
 import { HiPencil } from "react-icons/hi";
 
+import { useUserProfileData } from "@/hooks/useUserData";
+
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
-  const [user, setUser] = useState<User>({} as User);
-  const [isLoading, setIsLoading] = useState(true);
-  
-  useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch("/api/profile", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `tma ${initDataRaw}`
-        },
-      });
-      const user = await response.json();
-
-      if (user) {
-        setUser(user);
-        setIsLoading(false);
-      } else {
-        console.log("Something went wrong on profile page");
-      }
-    }
-
-    getUser();
-  }, [initDataRaw]);
+  const {user, isLoading} = useUserProfileData(initDataRaw);
 
   return (
     <>
@@ -54,7 +33,7 @@ export default function Profile() {
             <h2>
               Donations
               <span>
-                (<Link href="/donations">See all</Link>)
+                (<Link href="/profile/donations">See all</Link>)
               </span>
             </h2>
             <DonationLink />
