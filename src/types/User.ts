@@ -4,6 +4,8 @@ export interface User {
 	role: string;
 	tonAddress: string;
 	telegramId: number;
+	minDonate: number;
+	description: string;
 	createdAt: string;
 	updatedAt: string;
 }
