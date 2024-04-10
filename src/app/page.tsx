@@ -30,10 +30,10 @@ export default function Home() {
 
         const data: ResponseAuthData = await response.json();
         
-        if (data.data.userExists) {
-          router.push("/profile");
-        } else if (initData?.startParam) {
+        if (initData?.startParam) {
           router.push(`/${initData.startParam}`);
+        } else if (data.data.userExists) {
+          router.push("/profile");
         } else {
           router.push("/welcome");
         }
