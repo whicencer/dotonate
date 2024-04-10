@@ -1,30 +1,43 @@
 .inputWrapper {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .input {
-	margin-top: 7px;
-	border: 2px solid transparent;
-	border-radius: 18px;
-	padding: 12px;
-	outline: none;
-	background-color: var(--tg-theme-background-color);
-	color: var(--tg-theme-text-color);
+  margin-top: 7px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  padding: 12px;
+  outline: none;
+  background-color: var(--tg-theme-background-color);
+  color: var(--tg-theme-text-color);
 
-	font-weight: 500;
-	font-size: 16px;
+  font-weight: 500;
+  font-size: 16px;
 
 
-	&::placeholder {
-		color: var(--tg-theme-hint-color);
-	}
+  &::placeholder {
+    color: var(--tg-theme-hint-color);
+  }
 
-	&:focus {
-		border-color: var(--tg-theme-link-color);
-	}
+  &:focus {
+    border-color: var(--tg-theme-link-color);
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .invalid {
-	border: 2px solid red !important;
+  border: 2px solid red !important;
+}
+
+.secondary {
+  border-color: var(--tg-theme-secondary-background-color);
+}
+.secondaryLabel {
+  color: var(--tg-theme-text-color);
 }

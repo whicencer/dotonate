@@ -11,37 +11,34 @@ import { DonationLink } from "@/components/DonationLink/DonationLink";
 import Link from "next/link";
 import { HiPencil } from "react-icons/hi";
 
-import { useUserProfileData } from "@/hooks/useUserData";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
-  const {user, isLoading} = useUserProfileData(initDataRaw);
+  const {user, isLoading} = useUserProfile(initDataRaw);
 
+  if (isLoading) return <Loader />
   return (
-    <>
-      {isLoading ? <Loader /> : (
-        <div>
-          <div className={cls.header}>
-            <h2 className={cls.greeting}>Hello, @{user.username}</h2>
-            <Link href="/profile/edit">
-              <HiPencil size={24} style={{ paddingBottom: 3 }} />
-            </Link>
-          </div>
-          <Card />
+    <div>
+      <div className={cls.header}>
+        <h2 className={cls.greeting}>Hello, @{user.username}</h2>
+        <Link href="/profile/edit">
+          <HiPencil size={24} style={{ paddingBottom: 3 }} />
+        </Link>
+      </div>
+      <Card />
 
-          <div className={cls.donations}>
-            <h2>
-              Donations
-              <span>
-                (<Link href="/profile/donations">See all</Link>)
-              </span>
-            </h2>
-            <DonationLink />
-            <Transaction />
-            <Transaction />
-          </div>
-        </div>
-      )}
-    </>
+      <div className={cls.donations}>
+        <h2>
+          Donations
+          <span>
+            (<Link href="/profile/donations">See all</Link>)
+          </span>
+        </h2>
+        <DonationLink username={user.username} />
+        <Transaction />
+        <Transaction />
+      </div>
+    </div>
   );
 }

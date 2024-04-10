@@ -17,7 +17,7 @@ export default function AddPaymentInfo() {
   const backButton = useBackButton();
 
   useEffect(() => {
-    backButton.on("click", () => router.push("/register"));
+    backButton.on("click", () => router.back());
     mainButton.setText("Finish!");
 
     const handleClick = async () => {

@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/Input/Input";
 import { Loader } from "@/components/ui/Loader/Loader";
 import { Textarea } from "@/components/ui/Textarea/Textarea";
-import { useUserProfileData } from "@/hooks/useUserData";
+import { useUserProfile } from "@/hooks/useUserProfile";
 import { useBackButton, useInitDataRaw, useMainButton } from "@tma.js/sdk-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { editUser } from "./services/editUser";
 
 export default function EditProfile() {
   const initDataRaw = useInitDataRaw();
-  const { user, isLoading } = useUserProfileData(initDataRaw);
+  const { user, isLoading } = useUserProfile(initDataRaw);
 
   const [minValue, setMinValue] = useState(1);
   const [pageText, setPageText] = useState("");
