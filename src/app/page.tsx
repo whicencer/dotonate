@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from 'react';
-import { useInitDataRaw, useViewport } from "@tma.js/sdk-react";
+import { useInitData, useInitDataRaw, useViewport } from "@tma.js/sdk-react";
 import { useRouter } from "next/navigation";
 import { ResponseAuthData } from "./types";
 import { Loader } from '@/components/ui/Loader/Loader';
 
 export default function Home() {
   const initDataRaw = useInitDataRaw();
+  const initData = useInitData();
   const router = useRouter();
   const viewport = useViewport();
 
@@ -28,8 +29,11 @@ export default function Home() {
         }
 
         const data: ResponseAuthData = await response.json();
+        
         if (data.data.userExists) {
           router.push("/profile");
+        } else if (initData?.startParam) {
+          router.push(`/${initData.startParam}`);
         } else {
           router.push("/welcome");
         }
@@ -41,7 +45,7 @@ export default function Home() {
     if (initDataRaw) {
       validateInitData();
     }
-  }, [initDataRaw, router, viewport]);
+  }, [initDataRaw, router, viewport, initData]);
 
   return <Loader />;
 }

@@ -11,22 +11,31 @@ interface InputProps {
 	min?: number;
 	max?: number;
 	inputMode?: "text" | "search" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | undefined;
+	secondary?: boolean;
+	style?: React.CSSProperties;
 }
 
-export const Input = ({ type = "text", placeholder, value, onChange, invalid, label, checked, inputMode, min, max }: InputProps) => {
+const ignoreArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  if (['ArrowUp', 'ArrowDown'].indexOf(event.key) > -1) {
+    event.preventDefault();
+  }
+}
+
+export const Input = ({ type = "text", placeholder, value, onChange, invalid, label, checked, inputMode, min, max, secondary, style }: InputProps) => {
 	return (
-		<div className={cls.inputWrapper}>
-			{label && <label>{label}</label>}
+		<div className={cls.inputWrapper} style={style}>
+			{label && <label className={secondary ? cls.secondaryLabel : ""}>{label}</label>}
 			<input
 				checked={checked}
 				inputMode={inputMode}
 				value={value}
 				onChange={onChange}
-				className={cls.input + (invalid ? " " + cls.invalid : "")}
+				className={cls.input + (invalid ? " " + cls.invalid : "") + (secondary ? " " + cls.secondary : "")}
 				type={type}
 				placeholder={placeholder}
 				min={min}
 				max={max}
+				onKeyDown={ignoreArrowKeys}
 			/>
 		</div>
 	);

@@ -1,8 +1,15 @@
 import { useState } from "react";
 import cls from "./styles.module.scss";
 
-export function DonationLink() {
-  const [donationLink] = useState("https://t.me/dotonatebot/app/9123415");
+interface Props {
+  username: string;
+}
+
+export function DonationLink({ username }: Props) {
+  const TelegramBot = process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || "";
+  const TelegramApp = process.env.NEXT_PUBLIC_TELEGRAM_BOT_APP || "";
+
+  const [donationLink] = useState(`https://t.me/${TelegramBot}/${TelegramApp}?startapp=${username}`);
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = () => {
