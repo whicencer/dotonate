@@ -35,7 +35,7 @@ export default function DonationPage({ params }: DonationPageProps) {
       <h2>Make a donation</h2>
       <Panel>
         <h3 style={{ marginBottom: 7 }}>@{user.username}</h3>
-        <span>{user.description}</span>
+        <span>{user.description || "No description."}</span>
       </Panel>
       <Panel>
         <DonationForm minDonate={user.minDonate} />
