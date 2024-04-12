@@ -18,12 +18,16 @@ export const DonationForm = ({ minDonate }: Props) => {
 
   useEffect(() => {
     const handleClick = () => {
+      if (tipAmount < minDonate) {
+        alert(`Please enter a tip amount greater than ${minDonate} TON`);
+        return;
+      }
       alert(`Thank you, ${donatorName} for your ${tipAmount} TON donation! Your message was: ${donationMessage}`);
     };
 
     mainButton.on("click", handleClick);
     return () => mainButton.off("click", handleClick);
-  }, [tipAmount, donatorName, donationMessage, mainButton]);
+  }, [tipAmount, donatorName, donationMessage, minDonate, mainButton]);
 
   return (
     <>
