@@ -15,11 +15,6 @@
   font-weight: 500;
   font-size: 16px;
 
-
-  &::placeholder {
-    color: var(--tg-theme-hint-color);
-  }
-
   &:focus {
     border-color: var(--tg-theme-link-color);
   }
