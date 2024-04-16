@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
-import { TmaSDKLoader } from "@/components/TmaSDKLoader";
+import { Providers } from "@/components/Providers/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <TmaSDKLoader>
+        <Providers>
           {children}
-        </TmaSDKLoader>
+        </Providers>
       </body>
     </html>
   );

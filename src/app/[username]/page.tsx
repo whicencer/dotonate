@@ -7,6 +7,8 @@ import { Loader } from "@/components/ui/Loader/Loader";
 import { notFound } from "next/navigation";
 import { Panel } from "@/components/ui/Panel/Panel";
 import { DonationForm } from "./components/DonationForm/DonationForm";
+import { TonConnectButton } from "@tonconnect/ui-react";
+import cls from "./styles.module.scss";
 
 interface DonationPageProps {
   params: { username: string }
@@ -33,6 +35,7 @@ export default function DonationPage({ params }: DonationPageProps) {
   return (
     <div>
       <h2>Make a donation</h2>
+      <TonConnectButton style={{ marginTop: 10 }} />
       <Panel>
         <h3 style={{ marginBottom: 7 }}>@{user.username}</h3>
         <span>{user.description || "No description."}</span>
