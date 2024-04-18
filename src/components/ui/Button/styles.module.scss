@@ -1,0 +1,17 @@
+.button {
+  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-button-color);
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+
+  white-space: nowrap; // текст в одну строку
+  overflow: hidden; // скрывает все что выходит за зону контейнера
+  text-overflow: ellipsis; // заменяет скрытый текст на многоточие 
+  
+  &:hover {
+    cursor: pointer;
+  }
+}

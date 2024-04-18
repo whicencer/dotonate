@@ -9,14 +9,15 @@ export function useUserProfile(initDataRaw: string = "") {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        const user = await getUserProfileService(initDataRaw || "");
-
+        const user = await getUserProfileService(initDataRaw);
+        
         if (user) {
           setUser(user);
-          setIsLoading(false);
         }
       } catch (error) {
         console.log("Error fetching user info: ", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 

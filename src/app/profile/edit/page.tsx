@@ -62,12 +62,12 @@ export default function EditProfile() {
   useEffect(() => {
     backButton.show();
     backButton.on('click', () => {
-      router.back();
+      router.push('/profile');
       backButton.hide();
       mainButton.hide();
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, mainButton]);
+  }, [router]);
 
   if (isLoading) return <Loader />;
   return (
