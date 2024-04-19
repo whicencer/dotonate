@@ -12,13 +12,13 @@ export const TonRate = ({ tipAmount }: Props) => {
 
   useEffect(() => {
     const getTonRate = async () => {
-      const response = await fetch('/api/tonrate');
+      const response = await fetch("https://tonapi.io/v2/rates?tokens=ton&currencies=ton,usd");
       const data: Response = await response.json();
       setTonRate(data);
     };
 
     getTonRate();
-  })
+  }, [])
 
   if (!tonRate) return "Loading...";
 
