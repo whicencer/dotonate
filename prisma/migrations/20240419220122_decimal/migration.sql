@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "donations" ALTER COLUMN "sum" SET DATA TYPE DECIMAL(65,30);
