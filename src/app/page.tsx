@@ -13,7 +13,8 @@ export default function Home() {
   const viewport = useViewport();
 
   useEffect(() => {
-    viewport.expand();
+    if (!initDataRaw) return;
+
     const validateInitData = async () => {
       try {
         const response = await fetch("/api/validate", {
@@ -23,11 +24,11 @@ export default function Home() {
             "Authorization": `tma ${initDataRaw}`
           },
         });
-
+        
         if (!response.ok) {
           throw new Error('Ошибка запроса к серверу');
         }
-
+        
         const data: ResponseAuthData = await response.json();
         
         if (initData?.startParam) {
@@ -41,11 +42,11 @@ export default function Home() {
         console.error('Ошибка валидации', error);
       }
     };
-
-    if (initDataRaw) {
-      validateInitData();
-    }
-  }, [initDataRaw, router, viewport, initData]);
+    
+    validateInitData();
+    viewport.expand();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initDataRaw]);
 
   return <Loader />;
 }

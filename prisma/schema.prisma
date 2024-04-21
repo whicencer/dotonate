@@ -5,20 +5,42 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-  id            String    @default(cuid()) @id
-  username      String    @unique
-  role          String
-  tonAddress    String
-  telegramId    BigInt    @unique
-  minDonate     Decimal   @default(1)
-  description   String    @default("")
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  id          String   @id @default(cuid())
+  username    String   @unique
+  role        String
+  tonAddress  String
+  telegramId  BigInt   @unique
+  minDonate   Decimal  @default(1)
+  description String   @default("")
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+
+  donations Donate[]
+
   @@map(name: "users")
+}
+
+model Donate {
+  id            Int    @id @default(autoincrement())
+  senderName    String
+  senderAddress String
+  // senderTelegramId
+
+  recipient         User   @relation(fields: [recipientId], references: [id])
+  recipientId       String
+  recipientUsername String
+  recipientAddress  String
+
+  sum     Decimal
+  message String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+
+  @@map(name: "donations")
 }

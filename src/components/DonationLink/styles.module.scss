@@ -8,7 +8,11 @@
   border: 2px solid transparent;
   border-radius: 12px;
 
-  span {
+  button {
+    border: none;
+    color: var(--tg-theme-text-color);
+    background-color: transparent;
+    outline: none;
     cursor: pointer;
     font-size: 14px;
     font-weight: 400;
@@ -22,7 +26,7 @@
 }
 
 .copied {
-  color: var(--tg-theme-accent-text-color);
+  color: var(--tg-theme-accent-text-color) !important;
   animation: textSlide 0.5s alternate;
 }
 

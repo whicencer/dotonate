@@ -5,29 +5,68 @@ import { useMainButton } from "@tma.js/sdk-react";
 import { Input } from "@/components/ui/Input/Input";
 import { Textarea } from "@/components/ui/Textarea/Textarea";
 import cls from "./styles.module.scss";
+import { useTonWallet } from "@tonconnect/ui-react";
+import { TonRate } from "../TonRate/TonRate";
+import { User } from "@/types/User";
+import { sendDonate } from "../../actions/sendDonate";
+import { useTransaction } from "../../hooks/useTransaction";
+import { useNumberInput } from "@/hooks/useNumberInput";
 
 interface Props {
   minDonate: number;
+  recipient: User;
 }
 
-export const DonationForm = ({ minDonate }: Props) => {
+export const DonationForm = ({ minDonate, recipient }: Props) => {
   const [donatorName, setDonatorName] = useState("");
-  const [donationMessage, setDonationMessage] = useState("");  
-  const [tipAmount, setTipAmount] = useState(minDonate);
+  const [donationMessage, setDonationMessage] = useState("");
+  const [tipAmount, handleChange] = useNumberInput(minDonate.toString());
   const mainButton = useMainButton();
+  const wallet = useTonWallet();
+  const { createTransaction } = useTransaction();
 
   useEffect(() => {
-    const handleClick = () => {
-      if (tipAmount < minDonate) {
+    mainButton.setText("Donate!");
+    mainButton.enable();
+    (wallet?.account && donatorName && donationMessage)
+      ? mainButton.show()
+      : mainButton.hide();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wallet?.account, donatorName, donationMessage]);
+
+  useEffect(() => {
+    const handleClick = async () => {
+      if (Number(tipAmount) < minDonate) {
         alert(`Please enter a tip amount greater than ${minDonate} TON`);
         return;
       }
-      alert(`Thank you, ${donatorName} for your ${tipAmount} TON donation! Your message was: ${donationMessage}`);
+
+      if (wallet?.account) {
+        try {
+          // Send Transaction
+          await createTransaction(recipient.tonAddress, Number(tipAmount));
+
+          // Create a record in DB
+          await sendDonate({
+            senderName: donatorName,
+            message: donationMessage,
+            tipAmount: Number(tipAmount),
+            senderWalletAddress: wallet?.account?.address.toString(),
+            recipientId: recipient.id,
+            recipientUsername: recipient.username,
+            recipientWalletAddress: recipient.tonAddress,
+          });
+
+          alert("Donation sent successfully! Thank you!");
+        } catch (error) {
+          console.log(error);
+        }
+      }
     };
 
     mainButton.on("click", handleClick);
     return () => mainButton.off("click", handleClick);
-  }, [tipAmount, donatorName, donationMessage, minDonate, mainButton]);
+  }, [tipAmount, donatorName, donationMessage, minDonate, mainButton, recipient, wallet?.account, createTransaction]);
 
   return (
     <>
@@ -42,15 +81,18 @@ export const DonationForm = ({ minDonate }: Props) => {
         <Input
           secondary
           value={tipAmount.toString()}
-          onChange={(e) => setTipAmount(Number(e.target.value))}
+          onChange={handleChange}
           label="Your tip amount"
-          type="number"
-          min={tipAmount}
-          inputMode="numeric"
+          type="text"
+          inputMode="decimal"
           placeholder="Tip"
           style={{ marginTop: 12 }}
         />
         <span className={cls.minDonate}>Minimum amount: <b>{minDonate} TON</b></span>
+        <br />
+        <span className={cls.minDonate}>
+          <TonRate tipAmount={Number(tipAmount)} />
+        </span>
       </div>
       <div style={{ marginTop: 12 }}>
         <Textarea

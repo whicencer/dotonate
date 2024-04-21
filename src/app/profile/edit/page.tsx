@@ -8,24 +8,26 @@ import { useBackButton, useInitDataRaw, useMainButton } from "@tma.js/sdk-react"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { editUser } from "./services/editUser";
+import { useNumberInput } from "@/hooks/useNumberInput";
+import { TonRate } from "@/app/[username]/components/TonRate/TonRate";
 
 export default function EditProfile() {
   const initDataRaw = useInitDataRaw();
   const { user, isLoading } = useUserProfile(initDataRaw);
 
-  const [minValue, setMinValue] = useState(1);
-  const [pageText, setPageText] = useState("");
+  const [minValue, handleChangeMinValue, setMinValue] = useNumberInput("1.00");
+  const [description, setDescription] = useState("");
   
   const router = useRouter();
   const backButton = useBackButton();
   const mainButton = useMainButton();
 
   useEffect(() => {
-    if (user) {
-      setMinValue(user.minDonate || 1);
-      setPageText(user.description || "");
+    if (user && user.minDonate) {
+      setMinValue(user.minDonate.toString());
+      setDescription(user.description);
     }
-  }, [user]);
+  }, [setMinValue, user]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -37,7 +39,7 @@ export default function EditProfile() {
     const handlerClick = async () => {
       mainButton.hide();
       try {
-        const response = await editUser(minValue, pageText, initDataRaw);
+        const response = await editUser(Number(minValue), description, initDataRaw);
         
         if (response.ok) {
           alert("Profile has been successfully updated!");
@@ -57,17 +59,17 @@ export default function EditProfile() {
 
     return () => mainButton.off('click', handlerClick);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minValue, pageText, initDataRaw, isLoading, router]);
+  }, [minValue, description, initDataRaw, isLoading, router]);
 
   useEffect(() => {
     backButton.show();
     backButton.on('click', () => {
-      router.back();
+      router.push('/profile');
       backButton.hide();
       mainButton.hide();
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, mainButton]);
+  }, [router]);
 
   if (isLoading) return <Loader />;
   return (
@@ -77,18 +79,18 @@ export default function EditProfile() {
 
       <div style={{ marginTop: 20 }}>
         <Input
-          min={1}
-          value={minValue.toString()}
-          onChange={(e) => setMinValue(Number(e.target.value))}
-          type="number"
-          inputMode="numeric"
+          value={minValue}
+          onChange={handleChangeMinValue}
+          type="text"
+          inputMode="decimal"
           placeholder="Min amount"
-          label="Minimum donate amount"
+          label="Minimum donate amount (TON)"
         />
+        <TonRate tipAmount={Number(minValue)} />
         <div style={{ marginTop: 20 }}>
           <Textarea
-            value={pageText}
-            onChange={(e) => setPageText(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Your text"
             label="Text on the donation page"
           />

@@ -12,4 +12,25 @@ html, body {
 
 p, span, label {
 	color: var(--tg-theme-hint-color);
-} 
+}
+
+[data-tc-dropdown-button="true"] {
+	background-color: var(--tg-theme-button-color) !important;
+	div {
+		color: #fff !important;
+	}
+	svg > path {
+		fill: #fff !important;
+	}
+}
+
+[data-tc-dropdown-container="true"] {
+  display: block;
+  z-index: 999 !important;
+  position: absolute !important;
+  left: 6% !important;
+}
+
+[data-tc-connect-button="true"] {
+  background-color: var(--tg-theme-button-color) !important;
+}

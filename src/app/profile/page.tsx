@@ -2,9 +2,7 @@
 
 import { Card } from "@/components/Card/Card";
 import { Loader } from "@/components/ui/Loader/Loader";
-import { User } from "@/types/User";
 import { useInitDataRaw } from "@tma.js/sdk-react";
-import { useEffect, useState } from "react";
 import cls from "./styles.module.scss";
 import { Transaction } from "@/components/Transaction/Transaction";
 import { DonationLink } from "@/components/DonationLink/DonationLink";

@@ -24,9 +24,9 @@ export function DonationLink({ username }: Props) {
     <>
       <div className={cls.donationLink}>
         <h3>Your donation link</h3>
-        <span onClick={handleCopy} className={isCopied ? cls.copied : ""}>
+        <button onClick={handleCopy} className={isCopied ? cls.copied : ""}>
           {isCopied ? "Copied to clipboard!" : "(click to copy)"}
-        </span>
+        </button>
       </div>
     </>
   );
