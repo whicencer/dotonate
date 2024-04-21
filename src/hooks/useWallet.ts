@@ -1,11 +1,12 @@
 import { Network, getHttpEndpoint } from "@orbs-network/ton-access";
 import { Address, TonClient, fromNano } from "@ton/ton";
-import { useTonWallet } from "@tonconnect/ui-react";
+import { useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { useEffect, useState } from "react";
 
 export const useWallet = () => {
   const tonWallet = useTonWallet();
-  const [balance, setBalance] = useState(0);
+  const [tonConnectUI] = useTonConnectUI();
+  const [balance, setBalance] = useState<number | null>(null);
   const network = process.env.NEXT_PUBLIC_TON_NETWORK as Network;
   
   useEffect(() => {
@@ -23,6 +24,12 @@ export const useWallet = () => {
     getBalance();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tonWallet]);
+
+  tonConnectUI.onStatusChange((wallet) => {
+    if (!wallet?.account) {
+      setBalance(null);
+    }
+  });
 
   return { isAuth: !!tonWallet, balance, tonWallet };
 };
