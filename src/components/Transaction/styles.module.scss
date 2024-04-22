@@ -1,6 +1,6 @@
 .Transaction {
   background-color: var(--tg-theme-background-color, var(--tg-theme-bg-color));
-  padding: 18px;
+  padding: 15px 18px;
   border-radius: 15px;
   width: 100%;
   margin-top: 11px;
@@ -8,18 +8,17 @@
 
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .transactionSum {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .donator {
   width: 100%;
-  max-width: 85%;
   font-size: 20px;
   font-weight: 500;
   word-wrap: break-word;
@@ -27,8 +26,8 @@
 
 .donationMsg {
   font-size: 14px;
-  margin-top: 10px;
   width: 100%;
+  margin-top: 10px;
   word-wrap: break-word;
   color: var(--tg-theme-hint-color);
 }
