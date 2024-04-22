@@ -9,11 +9,13 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { editUser } from "./services/editUser";
 import { useNumberInput } from "@/hooks/useNumberInput";
-import { TonRate } from "@/app/[username]/components/TonRate/TonRate";
+import { TonRate } from "@/components/TonRate/TonRate";
+import { useTonRate } from "@/hooks/useTonRate";
 
 export default function EditProfile() {
   const initDataRaw = useInitDataRaw();
   const { user, isLoading } = useUserProfile(initDataRaw);
+  const tonRate = useTonRate();
 
   const [minValue, handleChangeMinValue, setMinValue] = useNumberInput("1.00");
   const [description, setDescription] = useState("");
@@ -86,7 +88,7 @@ export default function EditProfile() {
           placeholder="Min amount"
           label="Minimum donate amount (TON)"
         />
-        <TonRate tipAmount={Number(minValue)} />
+        <TonRate tonRate={tonRate * Number(minValue)} />
         <div style={{ marginTop: 20 }}>
           <Textarea
             value={description}
