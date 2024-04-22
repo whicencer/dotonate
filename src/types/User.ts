@@ -1,3 +1,5 @@
+import { Donation } from "./Donation";
+
 export interface User {
 	id: string;
 	username: string;
@@ -8,4 +10,5 @@ export interface User {
 	description: string;
 	createdAt: string;
 	updatedAt: string;
+	donations: Donation[]
 }

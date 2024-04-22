@@ -6,11 +6,12 @@ import { Input } from "@/components/ui/Input/Input";
 import { Textarea } from "@/components/ui/Textarea/Textarea";
 import cls from "./styles.module.scss";
 import { useTonWallet } from "@tonconnect/ui-react";
-import { TonRate } from "../TonRate/TonRate";
+import { TonRate } from "@/components/TonRate/TonRate";
 import { User } from "@/types/User";
-import { sendDonate } from "../../actions/sendDonate";
+import { saveDonate } from "../../actions/saveDonate";
 import { useTransaction } from "../../hooks/useTransaction";
 import { useNumberInput } from "@/hooks/useNumberInput";
+import { useTonRate } from "@/hooks/useTonRate";
 
 interface Props {
   minDonate: number;
@@ -24,6 +25,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
   const mainButton = useMainButton();
   const wallet = useTonWallet();
   const { createTransaction } = useTransaction();
+  const tonRate = useTonRate();
 
   useEffect(() => {
     mainButton.setText("Donate!");
@@ -47,7 +49,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           await createTransaction(recipient.tonAddress, Number(tipAmount));
 
           // Create a record in DB
-          await sendDonate({
+          await saveDonate({
             senderName: donatorName,
             message: donationMessage,
             tipAmount: Number(tipAmount),
@@ -90,9 +92,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
         />
         <span className={cls.minDonate}>Minimum amount: <b>{minDonate} TON</b></span>
         <br />
-        <span className={cls.minDonate}>
-          <TonRate tipAmount={Number(tipAmount)} />
-        </span>
+        <TonRate tonRate={(tonRate * Number(tipAmount))} />
       </div>
       <div style={{ marginTop: 12 }}>
         <Textarea

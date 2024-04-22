@@ -1,16 +1,26 @@
+import { TonRate } from '../TonRate/TonRate';
 import cls from './styles.module.scss';
 
-export function Transaction() {
+interface Props {
+  senderName: string;
+  amount: number;
+  message: string;
+  tonRate: number;
+}
+
+export function Transaction({ senderName, amount, message, tonRate }: Props) {
+  const tonToUsd = tonRate * amount;
+
   return (
     <div className={cls.Transaction}>
       <div className={cls.header}>
-        <h2 className={cls.donator}>Donator Name</h2>
-        <h3 className={cls.transactionSum}>$71</h3>
+        <h2 className={cls.donator}>{senderName}</h2>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-end", width: "100%" }}>
+          <h4 className={cls.transactionSum}>{amount} TON</h4>
+          <TonRate tonRate={tonToUsd} />
+        </div>
       </div>
-      <p className={cls.donationMsg}>
-        Hello! this is the first donate on this platform. And I want to say,
-        that it is the best platform for donation I have ever seen.
-      </p>
+      <p className={cls.donationMsg}>{message}</p>
       <div className={cls.menu}>
         <span className={cls.menuBtn}>Answer</span>
       </div>

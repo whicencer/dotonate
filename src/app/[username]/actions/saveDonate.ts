@@ -14,7 +14,7 @@ interface Donation {
   message: string;
 }
 
-export async function sendDonate(donation: Donation) {
+export async function saveDonate(donation: Donation) {
   try {
     await prisma.donate.create({
       data: {

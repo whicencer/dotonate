@@ -8,6 +8,13 @@ export async function GET(req: NextRequest) {
     const user = await prisma.user.findUnique({
       where: {
         telegramId: userData.user?.id
+      },
+      include: {
+        donations: {
+          orderBy: {
+            createdAt: "desc"
+          }
+        }
       }
     });
   
