@@ -8,7 +8,7 @@ import cls from "./styles.module.scss";
 import { useTonWallet } from "@tonconnect/ui-react";
 import { TonRate } from "../TonRate/TonRate";
 import { User } from "@/types/User";
-import { sendDonate } from "../../actions/sendDonate";
+import { saveDonate } from "../../actions/saveDonate";
 import { useTransaction } from "../../hooks/useTransaction";
 import { useNumberInput } from "@/hooks/useNumberInput";
 
@@ -47,7 +47,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           await createTransaction(recipient.tonAddress, Number(tipAmount));
 
           // Create a record in DB
-          await sendDonate({
+          await saveDonate({
             senderName: donatorName,
             message: donationMessage,
             tipAmount: Number(tipAmount),
