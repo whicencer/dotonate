@@ -10,10 +10,12 @@ import Link from "next/link";
 import { HiPencil } from "react-icons/hi";
 
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { useTonRate } from "@/hooks/useTonRate";
 
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
   const {user, isLoading} = useUserProfile(initDataRaw);
+  const tonRate = useTonRate();
 
   if (isLoading) return <Loader />
   return (
@@ -34,8 +36,24 @@ export default function Profile() {
           </span>
         </h2>
         <DonationLink username={user.username} />
-        <Transaction />
-        <Transaction />
+      </div>
+
+      <div className={cls.transactions}>
+        {
+          user.donations.length
+            ? user.donations.map((donation) => {
+                return (
+                  <Transaction
+                    key={donation.id}
+                    senderName={donation.senderName}
+                    amount={donation.sum}
+                    message={donation.message}
+                    tonRate={tonRate}
+                  />
+                );
+              })
+            : <p>No donations</p>
+        }
       </div>
     </div>
   );
