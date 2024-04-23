@@ -25,7 +25,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
   const mainButton = useMainButton();
   const wallet = useTonWallet();
   const { createTransaction } = useTransaction();
-  const tonRate = useTonRate();
+  const [tonRate] = useTonRate();
 
   useEffect(() => {
     mainButton.setText("Donate!");

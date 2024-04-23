@@ -15,7 +15,7 @@ import { useTonRate } from "@/hooks/useTonRate";
 export default function EditProfile() {
   const initDataRaw = useInitDataRaw();
   const { user, isLoading } = useUserProfile(initDataRaw);
-  const tonRate = useTonRate();
+  const [tonRate] = useTonRate();
 
   const [minValue, handleChangeMinValue, setMinValue] = useNumberInput("1.00");
   const [description, setDescription] = useState("");
