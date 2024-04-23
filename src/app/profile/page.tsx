@@ -15,7 +15,7 @@ import { useTonRate } from "@/hooks/useTonRate";
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
   const {user, isLoading} = useUserProfile(initDataRaw);
-  const tonRate = useTonRate();
+  const [tonRate, isLoadingRate] = useTonRate();
 
   if (isLoading) return <Loader />
   return (
@@ -26,7 +26,7 @@ export default function Profile() {
           <HiPencil size={24} style={{ paddingBottom: 3 }} />
         </Link>
       </div>
-      <Card />
+      <Card tonRate={tonRate} donations={user.donations} />
 
       <div className={cls.donations}>
         <h2>
@@ -52,7 +52,7 @@ export default function Profile() {
                   />
                 );
               })
-            : <p>No donations</p>
+            : isLoadingRate ? <Loader /> : <p>No donations</p>
         }
       </div>
     </div>
