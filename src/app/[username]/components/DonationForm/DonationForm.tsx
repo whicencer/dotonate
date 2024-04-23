@@ -19,9 +19,11 @@ interface Props {
 }
 
 export const DonationForm = ({ minDonate, recipient }: Props) => {
+  // TODO: React Hook Form
   const [donatorName, setDonatorName] = useState("");
   const [donationMessage, setDonationMessage] = useState("");
   const [tipAmount, handleChange] = useNumberInput(minDonate.toString());
+
   const mainButton = useMainButton();
   const wallet = useTonWallet();
   const { createTransaction } = useTransaction();
