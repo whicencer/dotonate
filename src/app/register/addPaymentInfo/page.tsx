@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/Input/Input";
 import { useRegistration } from "../context/RegistrationContext";
 import { ActionTypes } from "../context/types";
 import { createUser } from "./services/createUser";
+import Image from "next/image";
 
 export default function AddPaymentInfo() {
   const [{ username, tonAddress, role, telegramId }, dispatch] = useRegistration();
@@ -23,7 +24,7 @@ export default function AddPaymentInfo() {
     const handleClick = async () => {
       if (telegramId) {
         try {
-          // Register user
+          // TODO: Server Action
           const response = await createUser({
             username,
             role,
@@ -55,7 +56,7 @@ export default function AddPaymentInfo() {
       <div className={cls.header}>
         <Logo />
         <p>Enter your payment information in the field below</p>
-        <span className={cls.headerCreditCard}>💳</span>
+        <Image src={"/money.gif"} alt="money" width={195} height={195} />
       </div>
       <div className={cls.input}>
         <Input
