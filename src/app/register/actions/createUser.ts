@@ -18,7 +18,7 @@ export async function createUser(user: Props) {
       ),
     });
   } catch (error: any) {
-    console.log(`Failed to send donation: ${error.message}`);
-    throw new Error(`Failed to send donation: ${error.message}`);
+    console.log(`Failed to register: ${error.message}`);
+    throw new Error(`Failed to register: ${error.message}`);
   }
 }
