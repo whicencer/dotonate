@@ -46,6 +46,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
       }
 
       if (wallet?.account) {
+        mainButton.hide();
         try {
           // Send Transaction
           await createTransaction(recipient.tonAddress, Number(tipAmount));
@@ -64,6 +65,8 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           alert("Donation sent successfully! Thank you!");
         } catch (error) {
           console.log(error);
+        } finally {
+          mainButton.show();
         }
       }
     };
