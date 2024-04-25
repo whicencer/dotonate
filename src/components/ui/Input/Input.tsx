@@ -20,9 +20,19 @@ const ignoreArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (['ArrowUp', 'ArrowDown'].indexOf(event.key) > -1) {
     event.preventDefault();
   }
-}
+};
 
-export const Input = ({ type = "text", lang="en", placeholder, value, onChange, invalid, label, checked, inputMode, min, max, secondary, style }: InputProps) => {
+export const Input = ({
+	type = "text",
+	lang="en",
+	placeholder,
+	value,
+	onChange,
+	invalid,
+	label,
+	checked, inputMode, min, max, secondary, style
+}: InputProps) => {
+
 	return (
 		<div className={cls.inputWrapper} style={style}>
 			{label && <label className={secondary ? cls.secondaryLabel : ""}>{label}</label>}
