@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import cls from "./input.module.scss";
 
 interface InputProps {
@@ -14,6 +15,7 @@ interface InputProps {
 	inputMode?: "text" | "search" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | undefined;
 	secondary?: boolean;
 	style?: React.CSSProperties;
+	maxLength?: number;
 }
 
 const ignoreArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -30,9 +32,11 @@ export const Input = ({
 	onChange,
 	invalid,
 	label,
-	checked, inputMode, min, max, secondary, style
+	checked,
+	inputMode,
+	maxLength,
+	min, max, secondary, style
 }: InputProps) => {
-
 	return (
 		<div className={cls.inputWrapper} style={style}>
 			{label && <label className={secondary ? cls.secondaryLabel : ""}>{label}</label>}
@@ -48,6 +52,7 @@ export const Input = ({
 				min={min}
 				max={max}
 				onKeyDown={ignoreArrowKeys}
+        maxLength={maxLength}
 			/>
 		</div>
 	);

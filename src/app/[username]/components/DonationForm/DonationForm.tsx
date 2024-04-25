@@ -81,6 +81,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           secondary
           label="Your nickname"
           placeholder="John Doe"
+          maxLength={25}
           value={donatorName}
           onChange={(e) => setDonatorName(e.target.value)}
         />
@@ -104,6 +105,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           placeholder="Your message here..."
           value={donationMessage}
           onChange={(e) => setDonationMessage(e.target.value)}
+          maxLength={200}
         />
       </div>
     </>

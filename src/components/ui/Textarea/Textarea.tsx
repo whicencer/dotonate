@@ -6,9 +6,10 @@ interface TextareaProps {
 	placeholder?: string;
 	label?: string;
   secondary?: boolean;
+  maxLength?: number;
 }
 
-export function Textarea({ value, onChange, placeholder, label, secondary }: TextareaProps) {
+export function Textarea({ value, onChange, placeholder, label, secondary, maxLength }: TextareaProps) {
   return (
     <div className={cls.textareaWrapper}>
       {label && <label className={secondary ? cls.secondaryLabel : ""}>{label}</label>}
@@ -17,6 +18,7 @@ export function Textarea({ value, onChange, placeholder, label, secondary }: Tex
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        maxLength={maxLength}
       />
     </div>
   );
