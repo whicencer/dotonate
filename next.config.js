@@ -3,6 +3,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  env: {
+    DEV_BOT_TOKEN: process.env.DEV_BOT_TOKEN,
+    BOT_TOKEN: process.env.BOT_TOKEN,
+    MODE: process.env.MODE,
+  }
+};
 
 module.exports = withBundleAnalyzer(nextConfig);
