@@ -7,17 +7,21 @@ class TelegramService {
   }
 
   async sendMessage(chatId: number, message: string){
-    await fetch(this.apiUrl + "/sendMessage", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "chat_id": chatId,
-        "parse_mode": "HTML",
-        "text": message
-      })
-    });
+    try {
+      await fetch(this.apiUrl + "/sendMessage", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "chat_id": chatId,
+          "parse_mode": "HTML",
+          "text": message
+        })
+      });
+    } catch (error) {
+      console.log("Error while sending message:", error);
+    }
   }
 
   chequeMessage(recipientUsername: string, tonTip: number, fiatTip: number, donationMessage: string) {
