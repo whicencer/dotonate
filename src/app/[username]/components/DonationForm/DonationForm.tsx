@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useMainButton } from "@tma.js/sdk-react";
+import { useInitData, useMainButton } from "@tma.js/sdk-react";
 import { Input } from "@/components/ui/Input/Input";
 import { Textarea } from "@/components/ui/Textarea/Textarea";
 import cls from "./styles.module.scss";
@@ -12,11 +12,14 @@ import { saveDonate } from "../../actions/saveDonate";
 import { useTransaction } from "../../hooks/useTransaction";
 import { useNumberInput } from "@/hooks/useNumberInput";
 import { useTonRate } from "@/hooks/useTonRate";
+import TelegramService from "@/services/telegramService";
 
 interface Props {
   minDonate: number;
   recipient: User;
 }
+
+const telegramService = new TelegramService();
 
 export const DonationForm = ({ minDonate, recipient }: Props) => {
   const [donatorName, setDonatorName] = useState("");
@@ -27,6 +30,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
   const wallet = useTonWallet();
   const { createTransaction } = useTransaction();
   const [tonRate] = useTonRate();
+  const initData = useInitData();
 
   useEffect(() => {
     mainButton.setText("Donate!");
@@ -62,6 +66,13 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           });
 
           alert("Donation sent successfully! Thank you!");
+          
+          if (initData?.user) {
+            const tipAmountNum = Number(tipAmount);
+            const message = telegramService.chequeMessage(recipient.username, tipAmountNum, tipAmountNum * tonRate, donationMessage);
+
+            telegramService.sendMessage(initData.user?.id, message);
+          }
         } catch (error) {
           console.log(error);
         } finally {
@@ -72,7 +83,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
 
     mainButton.on("click", handleClick);
     return () => mainButton.off("click", handleClick);
-  }, [tipAmount, donatorName, donationMessage, minDonate, mainButton, recipient, wallet?.account, createTransaction]);
+  }, [tipAmount, donatorName, donationMessage, minDonate, mainButton, recipient, wallet?.account, createTransaction, initData?.user, tonRate]);
 
   return (
     <>
