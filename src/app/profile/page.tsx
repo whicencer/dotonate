@@ -14,10 +14,10 @@ import { useTonRate } from "@/hooks/useTonRate";
 
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
-  const {user, isLoading} = useUserProfile(initDataRaw);
+  const { user, isLoading } = useUserProfile(initDataRaw);
   const [tonRate, isLoadingRate] = useTonRate();
 
-  if (isLoading) return <Loader />
+  if (isLoading) return <Loader />;
   return (
     <div>
       <div className={cls.header}>
@@ -41,17 +41,20 @@ export default function Profile() {
       <div className={cls.transactions}>
         {
           user.donations.length
-            ? user.donations.map((donation) => {
+            ? user.donations.map((donation, index) => {
+              if (index < 3) {
                 return (
                   <Transaction
                     key={donation.id}
+                    createdAt={donation.createdAt}
                     senderName={donation.senderName}
                     amount={donation.sum}
                     message={donation.message}
                     tonRate={tonRate}
                   />
                 );
-              })
+              }
+            })
             : isLoadingRate ? <Loader /> : <p>No donations</p>
         }
       </div>
