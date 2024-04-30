@@ -8,8 +8,8 @@ import cls from "./addPaymentInfo.module.scss";
 import { Input } from "@/components/ui/Input/Input";
 import { useRegistration } from "../context/RegistrationContext";
 import { ActionTypes } from "../context/types";
-import { createUser } from "./services/createUser";
 import Image from "next/image";
+import { createUser } from "../actions/createUser";
 
 export default function AddPaymentInfo() {
   const [{ username, tonAddress, role, telegramId }, dispatch] = useRegistration();
@@ -22,9 +22,13 @@ export default function AddPaymentInfo() {
     mainButton.setText("Finish!");
 
     const handleClick = async () => {
+      if (!tonAddress) {
+        alert("Please, enter your TON wallet address");
+        return;
+      }
+
       if (telegramId) {
         try {
-          // TODO: Server Action
           const response = await createUser({
             username,
             role,

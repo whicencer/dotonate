@@ -15,13 +15,11 @@ export function Card({ donations, tonRate }: Props) {
   const [currentIncomeStatus, setCurrentIncomeStatus] = useState<IncomeStatuses>(IncomeStatuses.all);
   const income = calculateIncome(donations, currentIncomeStatus);
 
-  console.log(IncomeStatuses);
-
   return (
     <div className={cls.card}>
       <div className={cls.cardContent}>
         <span>Your total income</span>
-        <h2>{income.toFixed(2)} TON</h2>
+        <h2>{Number(income.toFixed(2)).toLocaleString("en-US")} TON</h2>
         <span>≈ ${(income * tonRate).toLocaleString('en-US')}</span>
       </div>
 

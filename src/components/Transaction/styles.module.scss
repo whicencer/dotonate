@@ -35,7 +35,6 @@
 .menuBtn {
   color: var(--tg-theme-text-color);
   display: inline-block;
-  margin-top: 15px;
   text-decoration: underline;
   cursor: pointer;
   margin-left: 12px;
@@ -53,4 +52,11 @@
 .menu {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.creationDate {
+  font-size: 13px;
+  color: var(--tg-theme-hint-color);
 }
