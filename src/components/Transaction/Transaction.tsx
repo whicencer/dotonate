@@ -2,14 +2,16 @@ import { TonRate } from '../TonRate/TonRate';
 import cls from './styles.module.scss';
 
 interface Props {
+  createdAt: Date;
   senderName: string;
   amount: number;
   message: string;
   tonRate: number;
 }
 
-export function Transaction({ senderName, amount, message, tonRate }: Props) {
+export function Transaction({ senderName, amount, message, tonRate, createdAt }: Props) {
   const tonToUsd = tonRate * amount;
+  const creationDate = new Date(createdAt);
 
   return (
     <div className={cls.Transaction}>
@@ -23,6 +25,7 @@ export function Transaction({ senderName, amount, message, tonRate }: Props) {
       <p className={cls.donationMsg}>{message}</p>
       <div className={cls.menu}>
         <span className={cls.menuBtn}>Answer</span>
+        <span className={cls.creationDate}>{creationDate.getDate() + "/" + (creationDate.getMonth() + 1) + "/" + creationDate.getFullYear()}</span>
       </div>
     </div>
   );
