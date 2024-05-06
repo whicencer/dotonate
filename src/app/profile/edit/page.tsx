@@ -41,7 +41,6 @@ export default function EditProfile() {
     const handlerClick = async () => {
       mainButton.hide();
       try {
-        // TODO: Server Action
         const response = await editUser(Number(minValue), description, initDataRaw);
         
         if (response.ok) {
