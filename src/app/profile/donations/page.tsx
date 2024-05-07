@@ -39,7 +39,7 @@ export default function Donations() {
               amount={donation.sum}
               message={donation.message}
               senderName={donation.senderName}
-              />
+            />
           );
         })
       }
