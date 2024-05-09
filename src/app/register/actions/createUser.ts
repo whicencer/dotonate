@@ -1,6 +1,7 @@
 "use server";
 
 import { UserRoles } from "@/enums/UserRoles";
+import { encrypt } from "@/helpers/crypto";
 import prisma from "@/lib/prisma";
 
 interface Props {
@@ -11,13 +12,15 @@ interface Props {
 }
 
 export async function createUser(user: Props) {
+  const hashedTonAddress = await encrypt(user.tonAddress);
+
   try {
     const createdUser = await prisma.user.create({
       data: {
         username: user.username,
         telegramId: user.telegramId,
         role: user.role,
-        tonAddress: user.tonAddress
+        tonAddress: hashedTonAddress
       }
     });
 
