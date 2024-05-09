@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useBackButton, useMainButton } from "@tma.js/sdk-react";
 import { Logo } from "@/components/ui/Logo/Logo";
@@ -29,16 +29,12 @@ export default function AddPaymentInfo() {
 
       if (telegramId) {
         try {
-          const response = await createUser({
+          await createUser({
             username,
             role,
             telegramId,
             tonAddress
           });
-  
-          if (!response.ok) {
-            throw new Error('Error creating user');
-          }
   
           router.push("success");
         } catch (error) {

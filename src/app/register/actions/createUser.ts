@@ -1,24 +1,35 @@
 "use server";
 
 import { UserRoles } from "@/enums/UserRoles";
+import prisma from "@/lib/prisma";
 
 interface Props {
   username: string;
   role: UserRoles;
   tonAddress: string;
-  telegramId: number | null;
+  telegramId: number;
 }
 
 export async function createUser(user: Props) {
   try {
-    return await fetch('/api/user', {
-      method: "POST",
-      body: JSON.stringify(user, (key, value) =>
-        typeof value === 'bigint' ? value.toString() : value
-      ),
+    const createdUser = await prisma.user.create({
+      data: {
+        username: user.username,
+        telegramId: user.telegramId,
+        role: user.role,
+        tonAddress: user.tonAddress
+      }
     });
-  } catch (error: any) {
-    console.log(`Failed to register: ${error.message}`);
-    throw new Error(`Failed to register: ${error.message}`);
+
+    return {
+      createdUser: {
+        ...createdUser,
+        telegramId: Number(createdUser.telegramId),
+        minDonate: Number(createdUser.minDonate)
+      },
+      message: "Success"
+    };
+  } catch (error: Error | any) {
+    console.log(error);
   }
 }
