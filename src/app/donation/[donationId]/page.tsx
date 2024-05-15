@@ -38,6 +38,10 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
 ${message}`)
           .then(() => {
             alert("Answer has been successfully sent!");
+          })
+          .catch((error) => {
+            console.log("Error while sending answer: ", error);
+            alert("Failed to send answer :(");
           });
       }
     };
