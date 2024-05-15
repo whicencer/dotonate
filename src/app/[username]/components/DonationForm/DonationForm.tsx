@@ -54,14 +54,13 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
         try {
           // Send Transaction
           const tonAddress = await decrypt(recipient.tonAddress);
-          await createTransaction(tonAddress, Number(tipAmount))
+          const tipAmountNum = Number(tipAmount);
+          await createTransaction(tonAddress, tipAmountNum)
             .then(async () => {              
               if (initData?.user) {
                 alert("Donation sent successfully! Thank you!");
 
-                const tipAmountNum = Number(tipAmount);
                 const message = telegramService.chequeMessage(recipient.username, tipAmountNum, tipAmountNum * tonRate, donationMessage);
-
                 telegramService.sendMessage(initData.user?.id, message);
 
                 // Create a record in DB

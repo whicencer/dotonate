@@ -10,7 +10,6 @@ import { Select } from "@/components/ui/Select/Select";
 import { ActionTypes } from "./context/types";
 import { useRegistration } from "./context/RegistrationContext";
 import { useBackButton, useInitData, useMainButton } from "@tma.js/sdk-react";
-import { useDebounce } from "@/hooks/useDebounce";
 import { usernameValidation } from "../../helpers/usernameValidation";
 
 export default function Register() {
