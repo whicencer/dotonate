@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 interface Donation {
   senderName: string;
   senderWalletAddress: string;
+  senderTelegramId: number;
 
   recipientId: string;
   recipientUsername: string;
@@ -22,6 +23,7 @@ export async function saveDonate(donation: Donation) {
         message: donation.message,
         sum: donation.tipAmount,
         senderAddress: donation.senderWalletAddress,
+        senderTelegramId: donation.senderTelegramId,
         recipientId: donation.recipientId,
         recipientUsername: donation.recipientUsername,
         recipientAddress: donation.recipientWalletAddress,

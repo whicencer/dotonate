@@ -2,18 +2,15 @@
 
 import { Transaction } from "@/components/Transaction/Transaction";
 import { Loader } from "@/components/ui/Loader/Loader";
+import { useDonations } from "@/hooks/useDonations";
 import { useTonRate } from "@/hooks/useTonRate";
-import { useUserProfile } from "@/hooks/useUserProfile";
-import { useBackButton, useInitDataRaw } from "@tma.js/sdk-react";
-import { useEffect, useState } from "react";
+import { useBackButton, } from "@tma.js/sdk-react";
+import { useEffect } from "react";
 
 export default function Donations() {
-  const initDataRaw = useInitDataRaw();
-  // TODO: New hook for getting donations
-  const { user, isLoading } = useUserProfile(initDataRaw);
+  const { donations, isLoading } = useDonations();
   const [tonRate] = useTonRate();
   const backButton = useBackButton();
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const handleBack = () => {
@@ -32,16 +29,13 @@ export default function Donations() {
     <div>
       <h1>Donations</h1>
       {
-        user.donations.map((donation) => {
+        donations.map((donation) => {
           return (
             <Transaction
               key={donation.id}
-              createdAt={donation.createdAt}
+              donation={donation}
               tonRate={tonRate}
-              amount={donation.sum}
-              message={donation.message}
-              senderName={donation.senderName}
-              />
+            />
           );
         })
       }

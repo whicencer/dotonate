@@ -13,7 +13,10 @@ export function DonationLink({ username }: Props) {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(donationLink);
+    navigator.clipboard.writeText(`Hey! ✨ Spread some joy and show your support!
+🥳 Your donation can make a big difference
+Dotonate Me 🙌💛
+${donationLink}`);
     setIsCopied(true);
     setTimeout(() => {
       setIsCopied(false);

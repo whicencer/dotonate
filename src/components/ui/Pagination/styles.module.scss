@@ -1,0 +1,28 @@
+/* Pagination Component Styles */
+
+.pagination {
+ display: flex;
+ gap: 0.5rem; /* Space between buttons */
+ justify-content: center; /* Center the buttons horizontally */
+ align-items: center; /* Center the buttons vertically */
+ margin-top: 1rem; /* Space above the component */
+}
+
+.pagination button {
+ background-color: var(--tg-theme-button-color); /* Primary color for buttons */
+ color: white; /* Button text color */
+ border: none; /* Remove button border */
+ border-radius: 4px; /* Rounded corners */
+ padding: 0.5rem 1rem; /* Padding inside the buttons */
+ cursor: pointer; /* Change cursor to pointer when hovering */
+ transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.pagination button:hover:not([disabled]) {
+ background-color: #0056b3; /* Darker shade for hover state */
+}
+
+.pagination button:disabled {
+ background-color: #d3d3d3; /* Grey color for disabled state */
+ cursor: not-allowed; /* Change cursor to indicate button is disabled */
+}
