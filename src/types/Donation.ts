@@ -4,6 +4,7 @@ export interface Donation {
   id: number;
   senderName: string;
   senderAddress: string;
+  senderTelegramId: number;
   recipient: User;
   recipientId: string;
   recipientUsername: string;
