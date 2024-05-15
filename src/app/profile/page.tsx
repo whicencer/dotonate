@@ -46,10 +46,7 @@ export default function Profile() {
                 return (
                   <Transaction
                     key={donation.id}
-                    createdAt={donation.createdAt}
-                    senderName={donation.senderName}
-                    amount={donation.sum}
-                    message={donation.message}
+                    donation={donation}
                     tonRate={tonRate}
                   />
                 );

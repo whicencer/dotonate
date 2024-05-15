@@ -5,13 +5,12 @@ import { Loader } from "@/components/ui/Loader/Loader";
 import { useDonations } from "@/hooks/useDonations";
 import { useTonRate } from "@/hooks/useTonRate";
 import { useBackButton, } from "@tma.js/sdk-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Donations() {
   const { donations, isLoading } = useDonations();
   const [tonRate] = useTonRate();
   const backButton = useBackButton();
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const handleBack = () => {
@@ -34,11 +33,8 @@ export default function Donations() {
           return (
             <Transaction
               key={donation.id}
-              createdAt={donation.createdAt}
+              donation={donation}
               tonRate={tonRate}
-              amount={donation.sum}
-              message={donation.message}
-              senderName={donation.senderName}
             />
           );
         })
