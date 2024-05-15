@@ -45,7 +45,7 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
   useEffect(() => {
     const handleClick = async () => {
       if (Number(tipAmount) < minDonate) {
-        alert(`Please enter a tip amount greater than ${minDonate} TON`);
+        alert(`Minimum amount: ${minDonate} TON`);
         return;
       }
 
@@ -55,27 +55,28 @@ export const DonationForm = ({ minDonate, recipient }: Props) => {
           // Send Transaction
           const tonAddress = await decrypt(recipient.tonAddress);
           await createTransaction(tonAddress, Number(tipAmount))
-            .then(async () => {
-              // Create a record in DB
-              await saveDonate({
-                senderName: donatorName,
-                message: donationMessage,
-                tipAmount: Number(tipAmount),
-                senderWalletAddress: wallet?.account?.address.toString(),
-                recipientId: recipient.id,
-                recipientUsername: recipient.username,
-                recipientWalletAddress: recipient.tonAddress,
-              });
-
-              alert("Donation sent successfully! Thank you!");
-              
+            .then(async () => {              
               if (initData?.user) {
+                alert("Donation sent successfully! Thank you!");
+
                 const tipAmountNum = Number(tipAmount);
                 const message = telegramService.chequeMessage(recipient.username, tipAmountNum, tipAmountNum * tonRate, donationMessage);
 
                 telegramService.sendMessage(initData.user?.id, message);
+
+                // Create a record in DB
+                await saveDonate({
+                  senderName: donatorName,
+                  message: donationMessage,
+                  tipAmount: Number(tipAmount),
+                  senderWalletAddress: wallet?.account?.address.toString(),
+                  recipientId: recipient.id,
+                  recipientUsername: recipient.username,
+                  recipientWalletAddress: recipient.tonAddress,
+                  senderTelegramId: initData?.user?.id
+                });
               }
-            })
+            });
         } catch (error) {
           console.log(error);
         } finally {

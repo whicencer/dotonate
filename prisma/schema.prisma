@@ -30,7 +30,7 @@ model Donate {
   id            Int    @id @default(autoincrement())
   senderName    String
   senderAddress String
-  // senderTelegramId
+  senderTelegramId BigInt
 
   recipient         User   @relation(fields: [recipientId], references: [id])
   recipientId       String
