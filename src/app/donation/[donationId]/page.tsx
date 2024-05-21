@@ -7,6 +7,9 @@ import { Loader } from "@/components/ui/Loader/Loader";
 import { Donation } from "@/types/Donation";
 import { useBackButton, useMainButton } from "@tma.js/sdk-react";
 import TelegramService from "@/services/telegramService";
+import { User } from "@/components/icons/User/User";
+import cls from "./styles.module.scss";
+import { Panel } from "@/components/ui/Panel/Panel";
 
 interface DonationAnswerPageProps {
   params: { donationId: string }
@@ -24,7 +27,7 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
   useEffect(() => {
     if (donation) {
       mainButton.show();
-      mainButton.setText("Send answer");
+      mainButton.setText("Answer it!");
       mainButton.enable();
     }
 
@@ -75,16 +78,29 @@ ${message}`)
 
   if (donation === null) return <Loader />;
   return (
-    <div>
-      <h2>{donation?.senderName}&apos;s Dotonate:</h2>
-      <p>{donation?.message}</p>
-      <br />
-      <h4>Your answer:</h4>
-      <Textarea
-        value={message}
-        onChange={(event) => setMessage(event.target.value)}
-        placeholder="Enter your answer here..."
-      />
+    <div className={cls.donation}>
+      <div className={cls.header}>
+        <User />
+        <span>Dotonate from <strong>{donation?.senderName}</strong></span>
+      </div>
+      <div className={cls.information}>
+        <h2>+{donation.sum} <span>TON</span></h2>
+        <span>November 8 at 8:40 AM</span>
+      </div>
+      <div className={cls.donationMessage}>
+        <Panel>
+          <span>Donation message</span>
+          <p>{donation?.message}</p>
+        </Panel>
+      </div>
+      <div className={cls.answer}>
+        <span>Your answer</span>
+        <Textarea
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          placeholder="Enter your answer here..."
+        />
+      </div>
     </div>
   );
 }

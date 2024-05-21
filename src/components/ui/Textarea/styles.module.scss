@@ -16,6 +16,7 @@
   font-weight: 500;
   color: var(--tg-theme-text-color);
   background-color: var(--tg-theme-background-color);
+  caret-color: var(--tg-theme-link-color);
 
   &:focus {
     border-color: var(--tg-theme-link-color);

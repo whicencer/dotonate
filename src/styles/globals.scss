@@ -10,7 +10,11 @@ html, body {
 	color: var(--tg-theme-text-color);
 }
 
-p, span, label {
+p {
+	color: var(--tg-theme-text-color);
+}
+
+span, label {
 	color: var(--tg-theme-hint-color);
 }
 
