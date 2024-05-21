@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  span {
+    margin-left: 1rem;
+    color: var(--tg-theme-text-color);
+  }
+}
+
+.information {
+  margin-top: 20px;
+  
+  h2 {
+    font-size: 3rem;
+    color: #31D158;
+
+    span {
+      color: inherit;
+      font-size: 2rem;
+    }
+  }
+
+  span {
+    color: var(--tg-theme-hint-color);
+  }
+}
+
+.donationMessage {
+  margin-top: 20px;
+
+  p {
+    margin-top: 5px;
+  }
+}
+
+.answer {
+  margin-top: 30px;
+}
