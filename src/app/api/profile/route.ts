@@ -18,12 +18,15 @@ export async function GET(req: NextRequest) {
       }
     });
 
+
+    // TODO: fix govnocode
     const userSerialized = {
       ...user,
       telegramId: Number(user?.telegramId),
       donations: user?.donations.map(donation => ({...donation, senderTelegramId: Number(donation.senderTelegramId)}))
     };
-  
+    //
+
     return NextResponse.json(userSerialized, { status: 200 });
   } catch (error: Error | any) {
     return NextResponse.json({

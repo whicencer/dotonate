@@ -18,7 +18,9 @@ export async function GET(request: Request, { params }: { params: { username: st
       }, { status: 404 });
     }
 
+    // TODO: Fix govnocode
     return NextResponse.json({...user, telegramId: Number(user?.telegramId)});
+    //
   } catch (error) {
     console.log(error);
     return NextResponse.json({

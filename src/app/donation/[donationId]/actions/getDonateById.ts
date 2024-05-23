@@ -13,6 +13,8 @@ export async function getDonateById(donationId: number) {
       }
     });
 
+
+    // TODO: Fix govnocode
     const donationSerialized = {
       ...donate,
       recipient: {

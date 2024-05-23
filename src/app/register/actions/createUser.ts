@@ -24,6 +24,8 @@ export async function createUser(user: Props) {
       }
     });
 
+
+    // TODO: Fix govnocode
     return {
       createdUser: {
         ...createdUser,
@@ -32,6 +34,7 @@ export async function createUser(user: Props) {
       },
       message: "Success"
     };
+    //
   } catch (error: Error | any) {
     console.log(error);
   }
