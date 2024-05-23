@@ -1,6 +1,7 @@
 import { toNano } from "@ton/ton";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 
+// TODO: вынести в shared layer
 export const useTransaction = () => {
   const [tonConnectUI] = useTonConnectUI();
 

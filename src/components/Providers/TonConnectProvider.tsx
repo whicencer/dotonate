@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 export const TonConnectProvider = ({ children }: { children: ReactNode }) => {
   const {isDark} = useThemeParams();
 
+  // TODO: Manifest
   return (
     <TonConnectUIProvider
       manifestUrl="https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json"

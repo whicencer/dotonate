@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+// Create user (Register)
 export async function POST(request: Request) {
   const userData = await request.json();
 
@@ -11,6 +12,7 @@ export async function POST(request: Request) {
       }
     });
 
+    // TODO: Fix govnocode
     return NextResponse.json({
       createdUser: {
         ...createdUser,
