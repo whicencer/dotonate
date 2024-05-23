@@ -10,6 +10,7 @@ import TelegramService from "@/services/telegramService";
 import { User } from "@/components/icons/User/User";
 import cls from "./styles.module.scss";
 import { Panel } from "@/components/ui/Panel/Panel";
+import { formatDate } from "@/helpers/formatDate";
 
 interface DonationAnswerPageProps {
   params: { donationId: string }
@@ -85,7 +86,7 @@ ${message}`)
       </div>
       <div className={cls.information}>
         <h2>+{donation.sum} <span>TON</span></h2>
-        <span>November 8 at 8:40 AM</span>
+        <span>{formatDate(donation.createdAt)}</span>
       </div>
       <div className={cls.donationMessage}>
         <Panel>
