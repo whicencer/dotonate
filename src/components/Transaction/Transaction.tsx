@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { TonRate } from '../TonRate/TonRate';
 import cls from './styles.module.scss';
 import { Donation } from '@/types/Donation';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   donation: Donation;
@@ -10,10 +10,12 @@ interface Props {
 
 export function Transaction({ donation, tonRate }: Props) {
   const tonToUsd = tonRate * donation.sum;
-  const creationDate = new Date(donation.createdAt);
+  const router = useRouter();
 
   return (
-    <div className={cls.Transaction}>
+    <div className={cls.Transaction} onClick={() => {
+      router.push(`/donation/${donation.id}`);
+    }}>
       <div className={cls.header}>
         <h2 className={cls.donator}>{donation.senderName}</h2>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-end", width: "100%" }}>
@@ -22,10 +24,6 @@ export function Transaction({ donation, tonRate }: Props) {
         </div>
       </div>
       <p className={cls.donationMsg}>{donation.message}</p>
-      <div className={cls.menu}>
-        <Link href={`/donation/${donation.id}`} className={cls.menuBtn}>Answer</Link>
-        <span className={cls.creationDate}>{creationDate.getDate() + "/" + (creationDate.getMonth() + 1) + "/" + creationDate.getFullYear()}</span>
-      </div>
     </div>
   );
 }
