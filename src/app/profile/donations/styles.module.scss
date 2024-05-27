@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.reload {
+  cursor: pointer;
+  margin-top: 6px;
+
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--tg-theme-text-color);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -11,5 +11,6 @@ export interface Donation {
   recipientAddress: string;
   sum: number;
   message: string;
+  answered: boolean;
   createdAt: Date;
 }

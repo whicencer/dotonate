@@ -6,6 +6,8 @@ import { useDonations } from "@/hooks/useDonations";
 import { useTonRate } from "@/hooks/useTonRate";
 import { useBackButton, } from "@tma.js/sdk-react";
 import { useEffect } from "react";
+import { IoReload } from "react-icons/io5";
+import cls from "./styles.module.scss";
 
 export default function Donations() {
   const { donations, isLoading } = useDonations();
@@ -27,7 +29,12 @@ export default function Donations() {
   if (isLoading) return <Loader />;
   return (
     <div>
-      <h1>Donations</h1>
+      <div className={cls.header}>
+        <h1>Donations</h1>
+        <button className={cls.reload} onClick={() => window.location.reload()}>
+          <IoReload size={25} />
+        </button>
+      </div>
       {
         donations.map((donation) => {
           return (

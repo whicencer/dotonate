@@ -11,11 +11,12 @@ import { HiPencil } from "react-icons/hi";
 
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useTonRate } from "@/hooks/useTonRate";
+import { User } from "@/types/User";
 
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
   const { user, isLoading } = useUserProfile(initDataRaw);
-  const [tonRate, isLoadingRate] = useTonRate();
+  const [tonRate] = useTonRate();
 
   if (isLoading) return <Loader />;
   return (
@@ -41,20 +42,30 @@ export default function Profile() {
       <div className={cls.transactions}>
         {
           user.donations.length
-            ? user.donations.map((donation, index) => {
-              if (index < 3) {
-                return (
-                  <Transaction
-                    key={donation.id}
-                    donation={donation}
-                    tonRate={tonRate}
-                  />
-                );
-              }
-            })
-            : isLoadingRate ? <Loader /> : <p>No donations</p>
+            ? <TransactionList user={user} tonRate={tonRate} />
+            : <p>You have no donations yet</p>
         }
       </div>
+    </div>
+  );
+}
+
+function TransactionList({ user, tonRate }: { user: User, tonRate: number }) {
+  return (
+    <div>
+      {
+        user.donations.map((donation, index) => {
+          if (index < 3) {
+            return (
+              <Transaction
+                key={donation.id}
+                donation={donation}
+                tonRate={tonRate}
+              />
+            );
+          }
+        })
+      }
     </div>
   );
 }

@@ -5,19 +5,17 @@ import { useCallback, useEffect, useState } from "react";
 import { Loader } from "@/components/ui/Loader/Loader";
 import { Donation } from "@/types/Donation";
 import { useBackButton, useMainButton } from "@tma.js/sdk-react";
-import TelegramService from "@/services/telegramService";
 import cls from "./styles.module.scss";
 import { formatDate } from "@/helpers/formatDate";
 import { useRouter } from "next/navigation";
 import { DonationHeader } from "./components/DonationHeader";
 import { DonationMessage } from "./components/DonationMessage";
 import { DonationAnswer } from "./components/DonationAnswer";
+import { sendAnswer } from "./actions/sendAnswer";
 
 interface DonationAnswerPageProps {
   params: { donationId: string }
 }
-
-const telegramService = new TelegramService();
 
 export default function DonationAnswerPage({ params }: DonationAnswerPageProps) {
   const { donationId } = params;
@@ -49,21 +47,20 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
     }
 
     if (donation?.senderTelegramId) {
+      mainButton.hide();
       try {
-        await telegramService.sendMessage(
-          donation.senderTelegramId,
-          `💬 Answer from <b>${donation.recipientUsername}</b> on your Donation:\n\n${answer}`
-        );
+        await sendAnswer(answer, donation.id, donation.recipientUsername, donation.senderTelegramId);
         alert("Answer has been successfully sent!");
       } catch (error) {
         console.error("Error while sending answer:", error);
         alert("Failed to send answer :(");
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [donation, answer]);
 
   useEffect(() => {
-    if (donation) {
+    if (donation && !donation.answered) {
       mainButton.show();
       mainButton.setText("Answer it!");
       mainButton.enable();
@@ -71,7 +68,8 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
     }
 
     return () => mainButton.off('click', handleMainButtonClick);
-  }, [mainButton, donation, handleMainButtonClick]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [donation, handleMainButtonClick]);
 
   // Button to go back
   const handleBackButtonClick = useCallback(() => {
@@ -96,7 +94,11 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
         <span>{formatDate(donation.createdAt)}</span>
       </div>
       <DonationMessage message={donation.message} />
-      <DonationAnswer message={answer} setMessage={setAnswer} />
+      {
+        donation.answered
+          ? <span className={cls.answered}>You have already answered this donation</span>
+          : <DonationAnswer message={answer} setMessage={setAnswer} />
+      }
     </div>
   );
 }

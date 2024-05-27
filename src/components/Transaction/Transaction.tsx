@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import { TonRate } from '../TonRate/TonRate';
 import cls from './styles.module.scss';
 import { Donation } from '@/types/Donation';
-import { useRouter } from 'next/navigation';
 
 interface Props {
   donation: Donation;
@@ -10,20 +10,19 @@ interface Props {
 
 export function Transaction({ donation, tonRate }: Props) {
   const tonToUsd = tonRate * donation.sum;
-  const router = useRouter();
 
   return (
-    <div className={cls.Transaction} onClick={() => {
-      router.push(`/donation/${donation.id}`);
-    }}>
-      <div className={cls.header}>
-        <h2 className={cls.donator}>{donation.senderName}</h2>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-end", width: "100%" }}>
-          <h4 className={cls.transactionSum}>{donation.sum} TON</h4>
-          <TonRate tonRate={tonToUsd} />
+    <Link href={`/donation/${donation.id}`} className={cls.link}>
+      <div className={cls.Transaction}>
+        <div className={cls.header}>
+          <h2 className={cls.donator}>{donation.senderName}</h2>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-end", width: "100%" }}>
+            <h4 className={cls.transactionSum}>{donation.sum} TON</h4>
+            <TonRate tonRate={tonToUsd} />
+          </div>
         </div>
+        <p className={cls.donationMsg}>{donation.message}</p>
       </div>
-      <p className={cls.donationMsg}>{donation.message}</p>
-    </div>
+    </Link>
   );
 }
