@@ -39,6 +39,7 @@ model Donate {
 
   sum     Decimal
   message String
+  answered Boolean @default(false)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
 
