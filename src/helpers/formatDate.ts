@@ -1,6 +1,6 @@
 export function formatDate(date: Date) {
   const newDate = new Date(date);
-  const day = newDate.getDay();
+  const day = newDate.getDate();
   const month = newDate.getMonth();
   const hour = newDate.getHours();
   const minutes = newDate.getMinutes();
