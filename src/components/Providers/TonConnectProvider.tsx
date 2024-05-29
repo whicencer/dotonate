@@ -9,7 +9,7 @@ export const TonConnectProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <TonConnectUIProvider
-      manifestUrl="https://raw.githubusercontent.com/whicencer/dotonate/main/public/tonconnect-manifest.json"
+      manifestUrl="/tonconnect-manifest.json"
       uiPreferences={{
         theme: isDark ? THEME.DARK : THEME.LIGHT
       }}
