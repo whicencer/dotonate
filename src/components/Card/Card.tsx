@@ -24,7 +24,7 @@ export function Card({ donations, tonRate }: Props) {
       </div>
 
       <div className={cls.badges}>
-        {['all', 'year', 'month'].map((status) => (
+        {['all', 'year', 'month', 'week'].map((status) => (
           <span
             key={status}
             onClick={() => setCurrentIncomeStatus(status as IncomeStatuses)}

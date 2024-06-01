@@ -25,6 +25,14 @@ export const calculateIncome = (donations: Donation[], status: IncomeStatuses) =
       return new Date(donation.createdAt).getFullYear() === currentYear;
     }
 
+    if (status === IncomeStatuses.week) {
+      return (
+        new Date(donation.createdAt).getDay() === now.getDay()
+        && new Date(donation.createdAt).getMonth() === currentMonth
+        && new Date(donation.createdAt).getFullYear() === currentYear
+      );
+    }
+
     return true;
   }).reduce(( accumulator, donation ) => Number(accumulator) + Number(donation.sum), 0);
 }
