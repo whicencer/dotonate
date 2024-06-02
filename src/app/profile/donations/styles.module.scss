@@ -15,13 +15,6 @@
   color: var(--tg-theme-text-color);
 }
 
-.donations {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 60vh;
-}
-
 @keyframes rotate {
   0% {
     transform: rotate(0);
