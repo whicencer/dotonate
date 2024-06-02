@@ -8,6 +8,8 @@ import { useBackButton, } from "@tma.js/sdk-react";
 import { useEffect } from "react";
 import { IoReload } from "react-icons/io5";
 import cls from "./styles.module.scss";
+import { NoDonations } from "../components/NoDonations";
+import { Donation } from "@/types/Donation";
 
 export default function Donations() {
   const { donations, isLoading } = useDonations();
@@ -28,13 +30,25 @@ export default function Donations() {
 
   if (isLoading) return <Loader />;
   return (
-    <div>
+    <div className={cls.donations}>
       <div className={cls.header}>
         <h1>Donations</h1>
         <button className={cls.reload} onClick={() => window.location.reload()}>
           <IoReload size={25} />
         </button>
       </div>
+      {
+        donations.length 
+          ? <DonationsList donations={donations} tonRate={tonRate} />
+          : <NoDonations />
+      }
+    </div>
+  );
+}
+
+function DonationsList({ donations, tonRate }: { donations: Donation[], tonRate: number }) {
+  return (
+    <>
       {
         donations.map((donation) => {
           return (
@@ -46,6 +60,6 @@ export default function Donations() {
           );
         })
       }
-    </div>
-  );
+    </>
+  )
 }

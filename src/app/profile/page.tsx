@@ -11,7 +11,8 @@ import { HiPencil } from "react-icons/hi";
 
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useTonRate } from "@/hooks/useTonRate";
-import { User } from "@/types/User";
+import { NoDonations } from "./components/NoDonations";
+import { Donation } from "@/types/Donation";
 
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
@@ -42,19 +43,19 @@ export default function Profile() {
       <div className={cls.transactions}>
         {
           user.donations.length
-            ? <TransactionList user={user} tonRate={tonRate} />
-            : <p>You have no donations yet</p>
+            ? <DonationList donations={user.donations} tonRate={tonRate} />
+            : <NoDonations />
         }
       </div>
     </div>
   );
 }
 
-function TransactionList({ user, tonRate }: { user: User, tonRate: number }) {
+function DonationList({ donations, tonRate }: { donations: Donation[], tonRate: number }) {
   return (
     <div>
       {
-        user.donations.map((donation, index) => {
+        donations.map((donation, index) => {
           if (index < 3) {
             return (
               <Transaction
