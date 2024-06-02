@@ -60,11 +60,6 @@
   &:first-child {
     margin: 0;
   }
-
-  &:hover {
-    background-color: var(--tg-theme-background-color);
-    color: var(--tg-theme-text-color);
-  }
 }
 
 .badgeActive {
