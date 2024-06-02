@@ -78,7 +78,7 @@ export default function Register() {
           <Input
             label="Your nickname"
             type="text"
-            placeholder="@azizov"
+            placeholder="azizov"
             value={username}
             onChange={usernameHandler}
             invalid={username.length > 0 && !formState.isValid}
