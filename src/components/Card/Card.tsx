@@ -23,7 +23,7 @@ export function Card({ donations, tonRate = 0, currency, color, icon }: Props) {
     <div className={cls.card} style={{ background: color }}>
       <div className={cls.cardContent}>
         <span>Your total income</span>
-        <h2>{Number(income.toFixed(2)).toLocaleString("en-US")} {currency.toUpperCase()}</h2>
+        <h2>{Number(income.toFixed(3)).toLocaleString("en-US")} {currency.toUpperCase()}</h2>
         <span>≈ ${(income * tonRate).toLocaleString('en-US')}</span>
       </div>
 
