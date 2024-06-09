@@ -12,7 +12,7 @@ import { HiPencil } from "react-icons/hi";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useTonRate } from "@/hooks/useTonRate";
 import { NoDonations } from "./components/NoDonations";
-import { Donation } from "@/types/Donation";
+import { Donation, DonationTypes } from "@/types/Donation";
 
 export default function Profile() {
   const initDataRaw = useInitDataRaw();
@@ -28,7 +28,7 @@ export default function Profile() {
           <HiPencil size={24} style={{ paddingBottom: 3 }} />
         </Link>
       </div>
-      <Card tonRate={tonRate} donations={user.donations} />
+      <Card tonRate={tonRate} donations={user.donations} currency={DonationTypes.TON} />
 
       <div className={cls.donations}>
         <h2>
@@ -47,6 +47,7 @@ export default function Profile() {
             : <NoDonations />
         }
       </div>
+      <Link href={`/profile/${DonationTypes.BOOBA}`}>go booba</Link>
     </div>
   );
 }
