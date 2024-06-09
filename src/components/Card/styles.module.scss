@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,13 +14,19 @@
 
   h2 {
     font-size: 32px;
+    padding: 3px 0;
     font-weight: 700;
 
     span {
       font-size: 20px;
       color: #fff;
-      font-weight: 700;
     }
+  }
+
+  img {
+    position: absolute;
+    top: 11px;
+    right: 15px;
   }
 }
 
@@ -50,7 +57,6 @@
   flex: 0 0 auto;
   cursor: pointer;
   color: #fff;
-  background-color: var(--tg-theme-link-color);
   padding: 7px 14px;
   border-radius: 20px;
   font-size: 14px;
@@ -63,6 +69,6 @@
 }
 
 .badgeActive {
-  background-color: var(--tg-theme-background-color);
-  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-background-color) !important;
+  color: var(--tg-theme-text-color) !important;
 }

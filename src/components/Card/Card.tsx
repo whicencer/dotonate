@@ -1,25 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import cls from './styles.module.scss';
-import { Donation } from '@/types/Donation';
+import { Donation, DonationTypes } from '@/types/Donation';
 import { IncomeStatuses } from '@/enums/IncomeStatuses';
 import { calculateIncome } from '@/helpers/calculateIncome';
+import Image from 'next/image';
 
 interface Props {
   donations: Donation[];
-  tonRate: number;
+  tonRate?: number;
+  currency: DonationTypes;
+  color?: string;
+  icon?: ReactElement;
 }
 
-export function Card({ donations, tonRate }: Props) {
+export function Card({ donations, tonRate = 0, currency, color, icon }: Props) {
   const [currentIncomeStatus, setCurrentIncomeStatus] = useState<IncomeStatuses>(IncomeStatuses.all);
   const income = calculateIncome(donations, currentIncomeStatus);
 
   return (
-    <div className={cls.card}>
+    <div className={cls.card} style={{ background: color }}>
       <div className={cls.cardContent}>
         <span>Your total income</span>
-        <h2>{Number(income.toFixed(2)).toLocaleString("en-US")} TON</h2>
+        <h2>{Number(income.toFixed(2)).toLocaleString("en-US")} {currency.toUpperCase()}</h2>
         <span>≈ ${(income * tonRate).toLocaleString('en-US')}</span>
       </div>
 
@@ -36,6 +40,8 @@ export function Card({ donations, tonRate }: Props) {
           </span>
         ))}
       </div>
+
+      { icon ? icon : null }
     </div>
   );
 }
