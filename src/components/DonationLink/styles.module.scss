@@ -25,11 +25,6 @@
   }
 }
 
-.copied {
-  color: var(--tg-theme-accent-text-color) !important;
-  animation: textSlide 0.5s alternate;
-}
-
 @keyframes textSlide {
   0% {
     opacity: 0;

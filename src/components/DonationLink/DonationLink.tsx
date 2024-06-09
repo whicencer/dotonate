@@ -3,9 +3,10 @@ import cls from "./styles.module.scss";
 
 interface Props {
   username: string;
+  copiedColor?: string;
 }
 
-export function DonationLink({ username }: Props) {
+export function DonationLink({ username, copiedColor }: Props) {
   const TelegramBot = process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || "";
   const TelegramApp = process.env.NEXT_PUBLIC_TELEGRAM_BOT_APP || "";
 
@@ -27,7 +28,10 @@ ${donationLink}`);
     <>
       <div className={cls.donationLink}>
         <h3>Your donation link</h3>
-        <button onClick={handleCopy} className={isCopied ? cls.copied : ""}>
+        <button
+          onClick={handleCopy}
+          style={{ color: isCopied ? copiedColor || 'var(--tg-theme-accent-text-color)' : '' }}
+        >
           {isCopied ? "Copied to clipboard!" : "(click to copy)"}
         </button>
       </div>
