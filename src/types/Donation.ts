@@ -1,5 +1,10 @@
 import { User } from "./User";
 
+export enum DonationTypes {
+  TON = "ton",
+  BOOBA = "booba",
+}
+
 export interface Donation {
   id: number;
   senderName: string;
