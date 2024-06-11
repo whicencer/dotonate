@@ -1,0 +1,26 @@
+.optionSelector {
+  display: flex;
+  justify-content: center;
+}
+.optionSelectorButton {
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  max-width: 88px;
+
+  border-radius: 12px;
+
+  color: var(--tg-theme-link-color);
+  background-color: rgba(67, 120, 255, 0.1);
+
+  margin-left: 10px;
+  &:first-child {
+    margin: 0;
+  }
+}
+
+.active {
+  background-color: rgba(67, 120, 255, 0.2);
+}
