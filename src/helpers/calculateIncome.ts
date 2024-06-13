@@ -25,7 +25,7 @@ export const calculateIncome = (donations: Donation[], status: IncomeStatuses) =
       return new Date(donation.createdAt).getFullYear() === currentYear;
     }
 
-    if (status === IncomeStatuses.week) {
+    if (status === IncomeStatuses.day) {
       return (
         new Date(donation.createdAt).getDay() === now.getDay()
         && new Date(donation.createdAt).getMonth() === currentMonth
