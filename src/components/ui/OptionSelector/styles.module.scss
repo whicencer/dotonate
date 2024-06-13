@@ -1,7 +1,16 @@
 .optionSelector {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
 }
+.optionSelector::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
 .optionSelectorButton {
   cursor: pointer;
   font-size: 14px;
@@ -9,7 +18,6 @@
   border: none;
   outline: none;
   padding: 8px 16px;
-  max-width: 88px;
 
   border-radius: 12px;
 

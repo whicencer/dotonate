@@ -7,11 +7,9 @@ interface Props {
   onSelect?: (value: string) => void;
 }
 
-export const OptionSelector = ({ options, onSelect }: Props) => {
-  const [selectedOption, setSelectedOption] = useState<string>(options[0].value);
+export const OptionSelector = ({ options, onSelect, selectedOption }: Props) => {
 
   const handleSelect = (option: string) => {
-    setSelectedOption(option);
     if (onSelect) {
       onSelect(option);
     }
