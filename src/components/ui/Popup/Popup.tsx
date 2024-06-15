@@ -31,7 +31,7 @@ export const Popup = ({ status, title, message, buttonText, onClose, isOpen }: P
           <h3>{title}</h3>
           <p>{message}</p>
         </div>
-        <Button style={{borderRadius: 10, marginTop: 24}}>{buttonText}</Button>
+        <Button style={{borderRadius: 10, marginTop: 24}} onClick={onClose}>{buttonText}</Button>
       </div>
     </div>
   );
