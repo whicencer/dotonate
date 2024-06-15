@@ -1,0 +1,35 @@
+.optionSelector {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.optionSelector::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+.optionSelectorButton {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+
+  border-radius: 12px;
+
+  color: var(--tg-theme-link-color);
+  background-color: rgba(67, 120, 255, 0.1);
+
+  margin-left: 10px;
+  &:first-child {
+    margin: 0;
+  }
+}
+
+.selected {
+  background-color: rgba(67, 120, 255, 0.2);
+}
