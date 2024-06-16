@@ -11,6 +11,7 @@ import { ActionTypes } from "./context/types";
 import { useRegistration } from "./context/RegistrationContext";
 import { useBackButton, useInitData, useMainButton } from "@tma.js/sdk-react";
 import { usernameValidation } from "../../helpers/usernameValidation";
+import { Popup } from "@/components/ui/Popup/Popup";
 
 export default function Register() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function Register() {
   const initData  = useInitData();
   const mainButton = useMainButton();
   const backButton = useBackButton();
+  const [invalidPopupOpen, setInvalidPopupOpen] = useState(false);
   
   const [formState, setFormState] = useState({
     isValid: false,
@@ -39,7 +41,7 @@ export default function Register() {
       if (!userWithUsernameExists) {
         router.push('/register/addPaymentInfo');
       } else {
-        alert('User with this username already exists');
+        setInvalidPopupOpen(true);
       }
     };
     mainButton.on('click', handleMainButtonClick);
@@ -68,34 +70,44 @@ export default function Register() {
   };
 
   return (
-    <div className={cls.container}>
-      <div>
-        <Logo />
-        <p>Getting started with</p>
-      </div>
-      <div className={cls.registerForm}>
-        <div className={cls.registerFormNickname}>
-          <Input
-            label="Your nickname"
-            type="text"
-            placeholder="azizov"
-            value={username}
-            onChange={usernameHandler}
-            invalid={username.length > 0 && !formState.isValid}
-          />
-          {username.length > 0 && !formState.isValid && (
-            <p className={cls.invalid}>Nickname must only contain alphanumeric characters.</p>
-          )}
+    <>
+      <Popup
+        isOpen={invalidPopupOpen}
+        onClose={() => setInvalidPopupOpen(false)}
+        status="ERROR"
+        title="Error"
+        message="User with this username already exists"
+        buttonText="Try again!"
+      />
+      <div className={cls.container}>
+        <div>
+          <Logo />
+          <p>Getting started with</p>
         </div>
-        <div className={cls.registerFormCrypto}>
-          <label>Choose your role</label>
-          <Select
-            value={role}
-            onChange={(e) => dispatch({ type: ActionTypes.CHANGE_ROLE, payload: (e.target.value as UserRoles) })}
-            options={Object.entries(UserRoles).map(([key, value]) => ({ label: key, value }))}
-          />
+        <div className={cls.registerForm}>
+          <div className={cls.registerFormNickname}>
+            <Input
+              label="Your nickname"
+              type="text"
+              placeholder="azizov"
+              value={username}
+              onChange={usernameHandler}
+              invalid={username.length > 0 && !formState.isValid}
+            />
+            {username.length > 0 && !formState.isValid && (
+              <p className={cls.invalid}>Nickname must only contain alphanumeric characters.</p>
+            )}
+          </div>
+          <div className={cls.registerFormCrypto}>
+            <label>Choose your role</label>
+            <Select
+              value={role}
+              onChange={(e) => dispatch({ type: ActionTypes.CHANGE_ROLE, payload: (e.target.value as UserRoles) })}
+              options={Object.entries(UserRoles).map(([key, value]) => ({ label: key, value }))}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
