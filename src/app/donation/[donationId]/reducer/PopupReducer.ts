@@ -35,7 +35,7 @@ export const popupReducer = (state: State = popupInitState, action: Action): Sta
           title: "Error",
           buttonText: "Close",
           message: "Failed to send answer",
-          onButtonClick: () => state.isErrorPopupVisible = false,
+          onButtonClick: action.payload,
         }
       };
     case ActionTypes.SHOW_ERROR_EMPTY:
@@ -47,7 +47,7 @@ export const popupReducer = (state: State = popupInitState, action: Action): Sta
           title: "Answer can't be empty",
           buttonText: "Close",
           message: "Try again",
-          onButtonClick: () => state.isInfoPopupVisible = false,
+          onButtonClick: action.payload,
         }
       };
     case ActionTypes.HIDE_POPUP:

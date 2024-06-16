@@ -46,7 +46,9 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
   // Button to send answer
   const handleMainButtonClick = useCallback(async () => {
     if (!answer.trim()) {
-      dispatch({ type: ActionTypes.SHOW_ERROR_EMPTY });
+      dispatch({ type: ActionTypes.SHOW_ERROR_EMPTY, payload: () => {
+        dispatch({ type: ActionTypes.HIDE_POPUP });
+      }});
       return;
     }
 
@@ -60,7 +62,9 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
         });
       } catch (error) {
         console.error("Error while sending answer:", error);
-        dispatch({ type: ActionTypes.SHOW_ERROR });
+        dispatch({ type: ActionTypes.SHOW_ERROR, payload: () => {
+          dispatch({ type: ActionTypes.HIDE_POPUP });
+        }});
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
