@@ -73,7 +73,7 @@ export default function Register() {
     <>
       <Popup
         isOpen={invalidPopupOpen}
-        onClose={() => setInvalidPopupOpen(false)}
+        onButtonClick={() => setInvalidPopupOpen(false)}
         status="ERROR"
         title="Error"
         message="User with this username already exists"
