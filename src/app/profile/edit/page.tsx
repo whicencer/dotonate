@@ -84,7 +84,7 @@ export default function EditProfile() {
         buttonText="Go to profile"
         status="SUCCESS"
         isOpen={isSuccessPopupVisible}
-        onClose={() => {
+        onButtonClick={() => {
           setIsSuccessPopupVisible(false);
           router.push('/profile');
         }}
@@ -95,7 +95,7 @@ export default function EditProfile() {
         buttonText="Go to profile"
         status="ERROR"
         isOpen={isErrorPopupVisible}
-        onClose={() => {
+        onButtonClick={() => {
           setIsErrorPopupVisible(false);
           router.push('/profile');
         }}

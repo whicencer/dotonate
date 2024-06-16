@@ -1,7 +1,7 @@
 "use client";
 
 import { getDonateById } from "./actions/getDonateById";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { Loader } from "@/components/ui/Loader/Loader";
 import { Donation } from "@/types/Donation";
 import { useBackButton, useMainButton } from "@tma.js/sdk-react";
@@ -12,6 +12,9 @@ import { DonationHeader } from "./components/DonationHeader";
 import { DonationMessage } from "./components/DonationMessage";
 import { DonationAnswer } from "./components/DonationAnswer";
 import { sendAnswer } from "./actions/sendAnswer";
+import { Popup } from "@/components/ui/Popup/Popup";
+import { popupInitState, popupReducer } from "./reducer/PopupReducer";
+import { ActionTypes } from "./reducer/types";
 
 interface DonationAnswerPageProps {
   params: { donationId: string }
@@ -21,6 +24,7 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
   const { donationId } = params;
   const [donation, setDonation] = useState<Donation | null>(null);
   const [answer, setAnswer] = useState("");
+  const [popupState, dispatch] = useReducer(popupReducer, popupInitState);
   const backButton = useBackButton();
   const mainButton = useMainButton();
   const router = useRouter();
@@ -42,7 +46,7 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
   // Button to send answer
   const handleMainButtonClick = useCallback(async () => {
     if (!answer.trim()) {
-      alert("Please, enter your answer!");
+      dispatch({ type: ActionTypes.SHOW_ERROR_EMPTY });
       return;
     }
 
@@ -50,10 +54,13 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
       mainButton.hide();
       try {
         await sendAnswer(answer, donation.id, donation.recipientUsername, donation.senderTelegramId);
-        alert("Answer has been successfully sent!");
+        dispatch({
+          type: ActionTypes.SHOW_SUCCESS,
+          payload: () => router.push(`/profile`)
+        });
       } catch (error) {
         console.error("Error while sending answer:", error);
-        alert("Failed to send answer :(");
+        dispatch({ type: ActionTypes.SHOW_ERROR });
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,18 +94,28 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
 
   if (donation === null) return <Loader />;
   return (
-    <div className={cls.donation}>
-      <DonationHeader senderName={donation.senderName} />
-      <div className={cls.information}>
-        <h2>+{donation.sum} <span>TON</span></h2>
-        <span>{formatDate(donation.createdAt)}</span>
+    <>
+      <Popup
+        title={popupState.popupContent.title}
+        message={popupState.popupContent.message}
+        buttonText={popupState.popupContent.buttonText}
+        status={popupState.popupContent.status}
+        isOpen={popupState.isSuccessPopupVisible || popupState.isErrorPopupVisible || popupState.isInfoPopupVisible}
+        onButtonClick={popupState.popupContent.onButtonClick}
+      />
+      <div className={cls.donation}>
+        <DonationHeader senderName={donation.senderName} />
+        <div className={cls.information}>
+          <h2>+{donation.sum} <span>TON</span></h2>
+          <span>{formatDate(donation.createdAt)}</span>
+        </div>
+        <DonationMessage message={donation.message} />
+        {
+          donation.answered
+            ? <span className={cls.answered}>You have already answered this donation</span>
+            : <DonationAnswer message={answer} setMessage={setAnswer} />
+        }
       </div>
-      <DonationMessage message={donation.message} />
-      {
-        donation.answered
-          ? <span className={cls.answered}>You have already answered this donation</span>
-          : <DonationAnswer message={answer} setMessage={setAnswer} />
-      }
-    </div>
+    </>
   );
 }

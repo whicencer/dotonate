@@ -10,28 +10,19 @@ interface Props {
   buttonText: string;
 
   isOpen: boolean;
-  onClose: () => void;
+  onButtonClick?: () => void;
 }
 
-export const Popup = ({ status, title, message, buttonText, onClose, isOpen }: Props) => {
-  const handleClose = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    event.preventDefault();
-
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  };
-
+export const Popup = ({ status, title, message, buttonText, isOpen, onButtonClick }: Props) => {
   return (
-    <div className={`${cls.popupWrapper} ${isOpen ? cls.open : ''}`} onClick={handleClose}>
+    <div className={`${cls.popupWrapper} ${isOpen ? cls.open : ''}`}>
       <div className={`${cls.popup} ${isOpen ? cls.open : ''}`}>
         {status === "SUCCESS" ? <GrStatusGood size={90} /> : <MdError size={90} />}
         <div className={cls.popupMessage}>
           <h3>{title}</h3>
           <p>{message}</p>
         </div>
-        <Button style={{borderRadius: 10, marginTop: 24}} onClick={onClose}>{buttonText}</Button>
+        <Button style={{borderRadius: 10, marginTop: 24}} onClick={onButtonClick}>{buttonText}</Button>
       </div>
     </div>
   );
