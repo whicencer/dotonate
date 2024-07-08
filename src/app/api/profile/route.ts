@@ -13,7 +13,8 @@ export async function GET(req: NextRequest) {
         donations: {
           orderBy: {
             createdAt: "desc"
-          }
+          },
+          take: 3
         }
       }
     });

@@ -56,15 +56,13 @@ function DonationList({ donations, tonRate }: { donations: Donation[], tonRate: 
     <div>
       {
         donations.map((donation, index) => {
-          if (index < 3) {
-            return (
-              <Transaction
-                key={donation.id}
-                donation={donation}
-                tonRate={tonRate}
-              />
-            );
-          }
+          return (
+            <Transaction
+              key={donation.id}
+              donation={donation}
+              tonRate={tonRate}
+            />
+          );
         })
       }
     </div>
