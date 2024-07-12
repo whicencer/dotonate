@@ -100,7 +100,7 @@ export default function EditProfile() {
           router.push('/profile');
         }}
       />
-      <div>
+      <div style={{ paddingBottom: 40 }}>
         <h2>Edit profile</h2>
         <p>Change your profile settings</p>
 
