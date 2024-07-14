@@ -5,28 +5,30 @@ import { useRouter } from "next/navigation";
 import { useBackButton, useMainButton } from "@tma.js/sdk-react";
 import { Logo } from "@/components/ui/Logo/Logo";
 import cls from "./addPaymentInfo.module.scss";
-import { Input } from "@/components/ui/Input/Input";
 import { useRegistration } from "../context/RegistrationContext";
-import { ActionTypes } from "../context/types";
 import Image from "next/image";
+import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import { createUser } from "../actions/createUser";
 
 export default function AddPaymentInfo() {
-  const [{ username, tonAddress, role, telegramId }, dispatch] = useRegistration();
+  const [{ username, role, telegramId }] = useRegistration();
   const router = useRouter();
   const mainButton = useMainButton();
   const backButton = useBackButton();
+  const tonAddress = useTonAddress();
 
   useEffect(() => {
-    backButton.on("click", () => router.back());
-    mainButton.setText("Finish!");
+    const handleBackClick = () => router.back();
+    backButton.on("click", handleBackClick);
+    mainButton.hide();
 
-    const handleClick = async () => {
-      if (!tonAddress) {
-        alert("Please, enter your TON wallet address");
-        return;
-      }
+    return () => {
+      backButton.off("click", handleBackClick);
+    };
+  }, [backButton, mainButton, router]);
 
+  useEffect(() => {
+    const handleRegister = async () => {
       if (telegramId) {
         try {
           await createUser({
@@ -35,8 +37,9 @@ export default function AddPaymentInfo() {
             telegramId,
             tonAddress
           });
-  
-          router.push("success");
+    
+          router.push("../profile");
+          backButton.hide();
         } catch (error) {
           router.push("failed");
           console.log(error);
@@ -44,30 +47,23 @@ export default function AddPaymentInfo() {
       }
     };
 
-    mainButton.on("click", handleClick);
-
-    return () => {
-      mainButton.off("click", handleClick);
-    };
-  }, [mainButton, router, backButton, username, role, tonAddress, telegramId]);
+    if (tonAddress) {
+      handleRegister();
+    }
+  }, [router, username, role, tonAddress, telegramId]);
 
   return (
     <div className={cls.container}>
       <div className={cls.header}>
         <Logo />
-        <p>Enter your payment information in the field below</p>
+        <p>Connect your wallet to receive donations</p>
         <Image src={"/money.gif"} alt="money" width={195} height={195} />
       </div>
-      <div className={cls.input}>
-        <Input
-          value={tonAddress}
-          onChange={(e) => dispatch({ type: ActionTypes.CHANGE_TON_ADDRESS, payload: e.target.value })}
-          placeholder="Enter your TON address"
-          label="TON address"
-        />
-        <span>Carefully check the entered wallet address for accuracy.
-          Errors in the address may lead to loss of funds.</span>
-      </div>
+      {
+        !tonAddress
+          ? <TonConnectButton className={cls.tonConnectBtn} />
+          : <p style={{ marginTop: 20 }}>Successfully connected! <br /> You will be redirected shortly. Please wait...</p>
+      }
     </div>
   );
 }
