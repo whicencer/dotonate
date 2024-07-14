@@ -12,6 +12,7 @@ export default function RegisterSuccess() {
   
   useEffect(() => {
     backButton.hide();
+    mainButton.show();
     mainButton.setText("Go to account");
 
     const handleClick = () => {
@@ -22,7 +23,8 @@ export default function RegisterSuccess() {
     mainButton.on('click', handleClick);
 
     return () => mainButton.off('click', handleClick);
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cls.container}>

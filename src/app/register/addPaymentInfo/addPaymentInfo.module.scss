@@ -27,3 +27,13 @@
 	margin-top: 10px;
 	display: flex;
 }
+
+.tonConnectBtn {
+	[data-tc-connect-button="true"] {
+		width: 100%;
+		justify-content: center;
+	}
+	width: 100% !important;
+	justify-content: center;
+	margin-top: 30px;
+}

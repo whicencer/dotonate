@@ -7,7 +7,6 @@ import { UserRoles } from '@/enums/UserRoles';
 const initialState: State = {
   username: '',
   role: UserRoles.Streamer,
-  tonAddress: '',
   telegramId: null
 }
 
@@ -20,8 +19,6 @@ function reducer(state: State, action: Action) {
       return { ...state, username: action.payload };
     case ActionTypes.CHANGE_ROLE:
       return { ...state, role: action.payload };
-    case ActionTypes.CHANGE_TON_ADDRESS:
-      return { ...state, tonAddress: action.payload };
     case ActionTypes.CHANGE_TELEGRAM_ID:
       return { ...state, telegramId: action.payload };
     default:
