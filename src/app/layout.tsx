@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
+import '@telegram-apps/telegram-ui/dist/styles.css';
 import { Providers } from "@/components/Providers/Providers";
 import { Analytics } from "@vercel/analytics/react";
 

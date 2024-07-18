@@ -11,7 +11,9 @@ import { editUser } from "./services/editUser";
 import { useNumberInput } from "@/hooks/useNumberInput";
 import { TonRate } from "@/components/TonRate/TonRate";
 import { useTonRate } from "@/hooks/useTonRate";
-import { Popup } from "@/components/ui/Popup/Popup";
+import { Modal, Placeholder } from "@telegram-apps/telegram-ui";
+import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
+import Image from "next/image";
 
 export default function EditProfile() {
   const initDataRaw = useInitDataRaw();
@@ -55,7 +57,6 @@ export default function EditProfile() {
         
         if (response.ok) {
           setIsSuccessPopupVisible(true);
-          backButton.hide();
         } else {
           setIsErrorPopupVisible(true);
           console.error("Failed to update profile");
@@ -78,28 +79,38 @@ export default function EditProfile() {
   if (isLoading) return <Loader />;
   return (
     <>
-      <Popup
-        title="Success"
-        message="Profile has been successfully updated!"
-        buttonText="Go to profile"
-        status="SUCCESS"
-        isOpen={isSuccessPopupVisible}
-        onButtonClick={() => {
-          setIsSuccessPopupVisible(false);
-          router.push('/profile');
-        }}
-      />
-      <Popup
-        title="Error"
-        message="Failed to update profile :("
-        buttonText="Go to profile"
-        status="ERROR"
-        isOpen={isErrorPopupVisible}
-        onButtonClick={() => {
-          setIsErrorPopupVisible(false);
-          router.push('/profile');
-        }}
-      />
+      <Modal
+        open={isErrorPopupVisible} 
+        header={<ModalHeader>Only iOS header</ModalHeader>}
+      >
+        <Placeholder
+          header="Error"
+          description="Failed to update profile :("
+        >
+          <Image
+            alt="Telegram sticker"
+            src="/stickers/duck_idk.gif"
+            height={144}
+            width={144}
+          />
+        </Placeholder>
+      </Modal>
+      <Modal
+        open={isSuccessPopupVisible} 
+        header={<ModalHeader>Only iOS header</ModalHeader>}
+      >
+        <Placeholder
+          header="Success"
+          description="Profile has been successfully updated!"
+        >
+          <Image
+            alt="Telegram sticker"
+            src="/stickers/duck_thumb.gif"
+            height={144}
+            width={144}
+          />
+        </Placeholder>
+      </Modal>
       <div style={{ paddingBottom: 40 }}>
         <h2>Edit profile</h2>
         <p>Change your profile settings</p>
