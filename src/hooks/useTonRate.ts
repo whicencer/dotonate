@@ -17,5 +17,5 @@ export const useTonRate = (currency: string = "usd"): [number] => {
     getTonRate();
   }, [currency, getTonRate]);
 
-  return [tonRate];
+  return [Number(tonRate.toFixed(2))];
 }
