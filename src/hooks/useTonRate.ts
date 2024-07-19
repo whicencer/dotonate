@@ -15,7 +15,8 @@ export const useTonRate = (currency: string = "usd"): [number] => {
 
   useEffect(() => {
     getTonRate();
-  }, [currency, getTonRate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return [Number(tonRate.toFixed(2))];
 }
