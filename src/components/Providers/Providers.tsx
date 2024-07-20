@@ -3,15 +3,15 @@
 import { ReactNode } from "react";
 import { TmaSDKLoader } from "../TmaSDKLoader";
 import { TonConnectProvider } from "./TonConnectProvider";
-import { AppRoot } from '@telegram-apps/telegram-ui';
+import { TelegramUIProvider } from "./TelegramUIProvider";
 
 export const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <TmaSDKLoader>
       <TonConnectProvider>
-        <AppRoot>
+        <TelegramUIProvider>
           {children}
-        </AppRoot>
+        </TelegramUIProvider>
       </TonConnectProvider>
     </TmaSDKLoader>
   );
