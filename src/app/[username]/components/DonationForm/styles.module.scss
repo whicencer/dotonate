@@ -2,3 +2,26 @@
   font-size: 12px;
   margin-top: 7px;
 }
+
+.tipAmount {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px
+}
+
+.tipButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: ". ." ". ." "f f";
+  grid-gap: 10px;
+  margin-top: 10px;
+
+  button:last-child {
+    grid-area: f;
+  }
+}
+
+.selected {
+  background-color: var(--tg-theme-button-color);
+  color: #fff;
+}
