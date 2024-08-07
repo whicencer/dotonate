@@ -1,22 +1,5 @@
-import { ChangeEvent } from "react";
 import cls from "./input.module.scss";
-
-interface InputProps {
-	value?: string;
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	checked?: boolean;
-	type?: string;
-	placeholder?: string;
-	invalid?: boolean;
-	label?: string;
-	min?: number;
-	max?: number;
-	lang?: string;
-	inputMode?: "text" | "search" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | undefined;
-	secondary?: boolean;
-	style?: React.CSSProperties;
-	maxLength?: number;
-}
+import { InputProps } from "./types";
 
 const ignoreArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
   if (['ArrowUp', 'ArrowDown'].indexOf(event.key) > -1) {
@@ -24,35 +7,15 @@ const ignoreArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
   }
 };
 
-export const Input = ({
-	type = "text",
-	lang="en",
-	placeholder,
-	value,
-	onChange,
-	invalid,
-	label,
-	checked,
-	inputMode,
-	maxLength,
-	min, max, secondary, style
-}: InputProps) => {
+// eslint-disable-next-line react/display-name
+export const Input = (props: InputProps) => {
 	return (
-		<div className={cls.inputWrapper} style={style}>
-			{label && <label className={secondary ? cls.secondaryLabel : ""}>{label}</label>}
+		<div className={cls.inputWrapper} style={props.style}>
+			{props.label && <label className={props.secondary ? cls.secondaryLabel : ""}>{props.label}</label>}
 			<input
-				lang={lang}
-				checked={checked}
-				inputMode={inputMode}
-				value={value}
-				onChange={onChange}
-				className={cls.input + (invalid ? " " + cls.invalid : "") + (secondary ? " " + cls.secondary : "")}
-				type={type}
-				placeholder={placeholder}
-				min={min}
-				max={max}
+				{ ...props }
+				className={cls.input + (props.invalid ? " " + cls.invalid : "") + (props.secondary ? " " + cls.secondary : "")}
 				onKeyDown={ignoreArrowKeys}
-        maxLength={maxLength}
 			/>
 		</div>
 	);

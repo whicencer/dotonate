@@ -12,9 +12,11 @@ import { DonationHeader } from "./components/DonationHeader";
 import { DonationMessage } from "./components/DonationMessage";
 import { DonationAnswer } from "./components/DonationAnswer";
 import { sendAnswer } from "./actions/sendAnswer";
-import { Popup } from "@/components/ui/Popup/Popup";
 import { popupInitState, popupReducer } from "./reducer/PopupReducer";
 import { ActionTypes } from "./reducer/types";
+import { Modal, Placeholder } from "@telegram-apps/telegram-ui";
+import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
+import Image from "next/image";
 
 interface DonationAnswerPageProps {
   params: { donationId: string }
@@ -99,14 +101,27 @@ export default function DonationAnswerPage({ params }: DonationAnswerPageProps) 
   if (donation === null) return <Loader />;
   return (
     <>
-      <Popup
-        title={popupState.popupContent.title}
-        message={popupState.popupContent.message}
-        buttonText={popupState.popupContent.buttonText}
-        status={popupState.popupContent.status}
-        isOpen={popupState.isSuccessPopupVisible || popupState.isErrorPopupVisible || popupState.isInfoPopupVisible}
-        onButtonClick={popupState.popupContent.onButtonClick}
-      />
+      <Modal
+        header={<ModalHeader>Only iOS header</ModalHeader>}
+        open={popupState.isSuccessPopupVisible || popupState.isErrorPopupVisible || popupState.isInfoPopupVisible}
+      >
+        <Placeholder
+          description={popupState.popupContent.message}
+          header={popupState.popupContent.title}
+        >
+          <Image
+            alt="Telegram sticker"
+            src="/stickers/duck_thumb.gif"
+            width={144}
+            height={144}
+            style={{
+              display: 'block',
+              height: '144px',
+              width: '144px'
+            }}
+          />
+        </Placeholder>
+      </Modal>
       <div className={cls.donation}>
         <DonationHeader senderName={donation.senderName} />
         <div className={cls.information}>
